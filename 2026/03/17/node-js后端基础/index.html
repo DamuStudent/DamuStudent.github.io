@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言 开发语言： JS 数据库 mysql mongoDB  一、数据库 - MySQL1.数据库简介数据库：就是存储数据的仓库 数据表：二维表 记录：一行记录 设计表：设计表头（列名）  数据类型： 数字（int  2^31-1    float  double  long ）        字符串（char 1个   varchar  65533   text ）    date     2.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js后端基础">
+<meta property="og:url" content="http://example.com/2026/03/17/node-js%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="小沐的博客">
+<meta property="og:description" content="前言 开发语言： JS 数据库 mysql mongoDB  一、数据库 - MySQL1.数据库简介数据库：就是存储数据的仓库 数据表：二维表 记录：一行记录 设计表：设计表头（列名）  数据类型： 数字（int  2^31-1    float  double  long ）        字符串（char 1个   varchar  65533   text ）    date     2.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-17T07:56:35.000Z">
+<meta property="article:modified_time" content="2026-03-17T09:37:44.892Z">
+<meta property="article:author" content="小沐">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2026/03/17/node-js%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/03/17/node-js%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80/","path":"2026/03/17/node-js后端基础/","title":"node.js后端基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>node.js后端基础 | 小沐的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">小沐的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">代码能止肚饿</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小沐"
+      src="/images/avatar_1.jpg">
+  <p class="site-author-name" itemprop="name">小沐</p>
+  <div class="site-description" itemprop="description">我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/17/node-js%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.jpg">
+      <meta itemprop="name" content="小沐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沐的博客">
+      <meta itemprop="description" content="我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="node.js后端基础 | 小沐的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          node.js后端基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-17 15:56:35 / 修改时间：17:37:44" itemprop="dateCreated datePublished" datetime="2026-03-17T15:56:35+08:00">2026-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>开发语言： JS</li>
+<li>数据库 mysql mongoDB</li>
+</ul>
+<h1 id="一、数据库-MySQL"><a href="#一、数据库-MySQL" class="headerlink" title="一、数据库 - MySQL"></a>一、数据库 - MySQL</h1><h2 id="1-数据库简介"><a href="#1-数据库简介" class="headerlink" title="1.数据库简介"></a>1.数据库简介</h2><p>数据库：就是存储数据的仓库</p>
+<p>数据表：二维表</p>
+<p>记录：一行记录</p>
+<p>设计表：设计表头（列名）</p>
+<blockquote>
+<p>数据类型： 数字（int  2^31-1    float  double  long ）        字符串（char 1个   varchar  65533   text ）    date   </p>
+</blockquote>
+<h2 id="2-查询语句-增删改查"><a href="#2-查询语句-增删改查" class="headerlink" title="2.查询语句 - 增删改查"></a>2.查询语句 - 增删改查</h2><ul>
+<li>创建表</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create  <span class="title class_">Table</span>  <span class="string">&#x27;user&#x27;</span>(id)  </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>新增数据</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert into</span> <span class="keyword">user</span> (name,password)<span class="keyword">values</span>(<span class="string">&#x27;张三&#x27;</span>,<span class="string">&#x27;123456&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除数据</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span>  <span class="keyword">user</span> <span class="keyword">set</span> name<span class="operator">=</span><span class="string">&#x27;黄雨&#x27;</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询</li>
+</ul>
+<p>查满足条件的所有字段   </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span>  <span class="keyword">where</span> gender<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>查满足条件的 部分字段   </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id,name,gender <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> gender<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>查满足条件的所有字段 的分页数据           </p>
+<blockquote>
+<p>limit </p>
+<p>起点：( currentpage-1 )  * pagesize</p>
+<p>终点; currentpage*pageSize </p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span>  <span class="keyword">where</span> gender<span class="operator">=</span><span class="number">1</span>  LIMIT <span class="number">0</span>, <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>查满足条件的所有字段 的降序 升序   </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> student_info <span class="keyword">ORDER</span> <span class="keyword">BY</span> age <span class="keyword">desc</span>;   <span class="operator">/</span><span class="operator">/</span>根据年龄 降序</span><br></pre></td></tr></table></figure>
+
+<p>多表联查  子查询 （左查询  右查询）</p>
+<blockquote>
+<p>根据商品id  查询到商品详情      </p>
+<p>商品详情表     分类id  </p>
+<p>要根据分类id  查询到对应的分类名 再将所有数据返回 </p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">    product_id, <span class="comment">-- 商品ID</span></span><br><span class="line">    product_name, <span class="comment">-- 商品名称</span></span><br><span class="line">    price, <span class="comment">-- 商品价格</span></span><br><span class="line">    category_id, <span class="comment">-- 分类ID</span></span><br><span class="line">    <span class="comment">-- 子查询：根据当前行的category_id，从分类表查询对应的分类名</span></span><br><span class="line">    (<span class="keyword">SELECT</span> category_name <span class="keyword">FROM</span> category <span class="keyword">WHERE</span> category.category_id <span class="operator">=</span> product_detail.category_id) <span class="keyword">AS</span> category_name </span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">    product_detail </span><br><span class="line"><span class="keyword">WHERE</span> </span><br><span class="line">    product_id <span class="operator">=</span> <span class="number">1001</span>; <span class="comment">-- 指定要查询的商品ID</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>数据加密</li>
+</ul>
+<blockquote>
+<p>md5在 MySQL 中，<strong><code>MD5()</code></strong> 是一个内置的<strong>哈希函数</strong>，用于计算字符串的 <strong>MD5 消息摘要（128 位哈希值）</strong>，通常以 <strong>32 个字符的十六进制字符串</strong>形式返回。它常用于数据加密、密码存储（尽管不推荐单独使用）、校验数据完整性等场景。</p>
+</blockquote>
+<h1 id="二、node开发"><a href="#二、node开发" class="headerlink" title="二、node开发"></a>二、node开发</h1><p>好，终于要开始啦！</p>
+<blockquote>
+<p>node 后端开发： express  koa   egg</p>
+<p>node 常见的api</p>
+</blockquote>
+<h3 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h3><ul>
+<li><strong>简介</strong>：Express 是一个轻量级的 Web 框架，用于快速搭建 Node.js 应用程序。它提供了路由、中间件和模板引擎等功能，使开发者可以更专注于业务逻辑的实现。</li>
+</ul>
+<h3 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h3><ul>
+<li><strong>简介</strong>：Koa 是一个基于 Express 的 Node.js 框架，它使用异步编程和中间件设计模式，提供了更强大的异步处理能力。Koa 框架采用了 ES6+的语法，使得代码更加简洁和易于维护。</li>
+</ul>
+<h3 id="Egg"><a href="#Egg" class="headerlink" title="Egg"></a>Egg</h3><ul>
+<li><strong>简介</strong>：Egg 是一个企业级的 Node.js 框架，它基于 Koa 开发，提供了丰富的插件机制和功能。Egg 框架支持多框架集成，如 MySQL、Redis 等，使得开发者可以更方便地搭建大型企业级应用。</li>
+</ul>
+<h2 id="1-第一个node原生项目"><a href="#1-第一个node原生项目" class="headerlink" title="1.第一个node原生项目"></a>1.第一个node原生项目</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">https</span>:<span class="comment">//www.runoob.com/nodejs/nodejs-build-app.html</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：初始化项目之后 更改package.json 的启动命名</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;demo&quot;</span>,</span><br><span class="line">  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span>,</span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">   <span class="string">&quot;start&quot;</span>:<span class="string">&quot;node app.js&quot;</span>		<span class="comment">//就是这里</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;keywords&quot;</span>: [],</span><br><span class="line">  <span class="string">&quot;author&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span>,</span><br><span class="line">  <span class="string">&quot;description&quot;</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行命令:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run start </span><br></pre></td></tr></table></figure>
+
+<h2 id="2-后端三层"><a href="#2-后端三层" class="headerlink" title="2.后端三层"></a>2.后端三层</h2><ul>
+<li>数据模型层model</li>
+<li>接口层</li>
+<li>控制层 control   （有些会细分控制层）<ul>
+<li>控制层 control</li>
+<li>业务处理 service</li>
+</ul>
+</li>
+</ul>
+<p>拥有这三个默认层级的是 <strong>Egg</strong></p>
+<p>bin目录：代码写完后，上服务器，bin目录中为编译后的代码</p>
+<p>public：三方公共的静态资源</p>
+<p>routes：模块，前端api接口对应这里</p>
+<p>views：不用管，前后端不分离时的代码</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/16/JavaScript%E5%9F%BA%E7%A1%80/" rel="prev" title="JavaScript基础">
+                  <i class="fa fa-angle-left"></i> JavaScript基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/17/Godot%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E-gdScript%E5%9F%BA%E7%A1%80/" rel="next" title="Godot游戏引擎 - gdScript基础">
+                  Godot游戏引擎 - gdScript基础 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小沐</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

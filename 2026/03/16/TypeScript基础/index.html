@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="1.搭建TypeScript运行环境 安装 ts 的练习环境  1npm install typescript ts-node -g   创建练习项目  1tsc --init    编译项目  index.ts 自己创建  1tsc index.ts      2.TypeScript基础1.基本数据类型 定义变量语法  123456&#x2F;&#x2F; 定义变量语法let a:number &#x3D; 100;let">
 <meta property="og:type" content="article">
@@ -28,8 +28,10 @@
 <meta property="og:description" content="1.搭建TypeScript运行环境 安装 ts 的练习环境  1npm install typescript ts-node -g   创建练习项目  1tsc --init    编译项目  index.ts 自己创建  1tsc index.ts      2.TypeScript基础1.基本数据类型 定义变量语法  123456&#x2F;&#x2F; 定义变量语法let a:number &#x3D; 100;let">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-16T12:19:11.000Z">
-<meta property="article:modified_time" content="2026-03-16T13:00:04.620Z">
+<meta property="article:modified_time" content="2026-03-17T08:39:50.638Z">
 <meta property="article:author" content="小沐">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="笔记">
 <meta name="twitter:card" content="summary">
 
 
@@ -92,6 +94,7 @@
       <p class="site-title">小沐的博客</p>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">代码能止肚饿</p>
   </div>
 
   <div class="site-nav-right">
@@ -103,7 +106,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
   </ul>
 </nav>
 
@@ -115,7 +118,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -128,22 +131,33 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E6%90%AD%E5%BB%BATypeScript%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">1.搭建TypeScript运行环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-TypeScript%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">2.TypeScript基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">1.基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%95%B0%E7%BB%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.2.</span> <span class="nav-text">2.数组定义</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小沐"
+      src="/images/avatar_1.jpg">
   <p class="site-author-name" itemprop="name">小沐</p>
-  <div class="site-description" itemprop="description">研究程序时的我比国王富有          吃喝玩乐时的我比乞丐落魄</div>
+  <div class="site-description" itemprop="description">我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -172,13 +186,13 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/16/TypeScript%E5%9F%BA%E7%A1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar_1.jpg">
       <meta itemprop="name" content="小沐">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="小沐的博客">
-      <meta itemprop="description" content="研究程序时的我比国王富有          吃喝玩乐时的我比乞丐落魄">
+      <meta itemprop="description" content="我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -197,9 +211,28 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2026-03-16 20:19:11 / 修改时间：21:00:04" itemprop="dateCreated datePublished" datetime="2026-03-16T20:19:11+08:00">2026-03-16</time>
+      <time title="创建时间：2026-03-16 20:19:11" itemprop="dateCreated datePublished" datetime="2026-03-16T20:19:11+08:00">2026-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-03-17 16:39:50" itemprop="dateModified" datetime="2026-03-17T16:39:50+08:00">2026-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/TypeScript/" itemprop="url" rel="index"><span itemprop="name">TypeScript</span></a>
+        </span>
     </span>
 
   
@@ -244,19 +277,106 @@
 </blockquote>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">num</span>:<span class="built_in">number</span> = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">price</span>:<span class="built_in">number</span> = <span class="number">3.568</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">newPrice</span>:<span class="built_in">number</span> = <span class="title class_">Number</span>(price.<span class="title function_">toFixed</span>(<span class="number">2</span>))+<span class="number">1.8</span></span><br><span class="line">consloe.<span class="title function_">log</span>(newPrice*num);</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-数组定义"><a href="#2-数组定义" class="headerlink" title="2.数组定义"></a>2.数组定义</h2><ul>
+<h2 id="2-数组（Array）定义"><a href="#2-数组（Array）定义" class="headerlink" title="2.数组（Array）定义"></a>2.数组（Array）定义</h2><ul>
 <li>仍然需声明 元素的类型</li>
 </ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两种定义方法</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">arr1</span>:<span class="built_in">number</span>[] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> <span class="attr">arr2</span>:<span class="title class_">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两种定义方法</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">arr1</span>:<span class="built_in">number</span>[] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> <span class="attr">arr2</span>:<span class="title class_">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 联合类型数组（元素可以是 string 或 number）</span></span><br><span class="line"><span class="keyword">let</span> <span class="attr">mixed1</span>: (<span class="built_in">string</span> | <span class="built_in">number</span>)[] = [<span class="number">1</span>, <span class="string">&quot;a&quot;</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">let</span> <span class="attr">mixed2</span>: <span class="title class_">Array</span>&lt;<span class="built_in">string</span> | <span class="built_in">number</span>&gt; = [<span class="number">1</span>,<span class="string">&quot;a&quot;</span>,<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>案例：根据学生信息进行数据的处理</li>
+<li>案例：根据学生信息进行数据的处理 (数组)</li>
 </ul>
 <blockquote>
 <p>每个学生成绩 +10</p>
 <p>删除 不及格(&lt;60) 的学生 <strong>每个变量都需要写类型！</strong></p>
 </blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> students = [<span class="number">55</span>, <span class="number">44</span>, <span class="number">88</span>, <span class="number">36</span>, <span class="number">85</span>, <span class="number">75</span>];</span><br><span class="line">students = students.<span class="title function_">map</span>(<span class="keyword">function</span> (<span class="params">item</span>) &#123; <span class="keyword">return</span> item + <span class="number">10</span>; &#125;);</span><br><span class="line">students = students.<span class="title function_">filter</span>(<span class="keyword">function</span> (<span class="params">num</span>) &#123; <span class="keyword">return</span> num &gt; <span class="number">60</span>; &#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(students);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-元组（Tuple）定义"><a href="#3-元组（Tuple）定义" class="headerlink" title="3.元组（Tuple）定义"></a>3.元组（Tuple）定义</h2><ul>
+<li>元组是<strong>固定长度、固定类型</strong>的数组，每个位置的类型可以不同，长度<strong>不可变</strong>，一旦定义，不可增减元素（当然可以修改元素的值）</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个第一个元素是字符，第二个元素是数字的元组</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">tuple</span>:[<span class="built_in">string</span>,<span class="built_in">number</span>] = [<span class="string">&quot;小沐&quot;</span>,<span class="number">21</span>]</span><br><span class="line"><span class="comment">// 访问元素</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(tuple[<span class="number">0</span>]); <span class="comment">// &quot;Alice&quot;（类型推断为 string）</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(tuple[<span class="number">1</span>]); <span class="comment">// 25（类型推断为 number）</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意元组不能用数组赋值，你无法把一个number[]赋值给一个[number,number]，即便他们的索引是一样的</p>
+</blockquote>
+<h2 id="4-any任何类型"><a href="#4-any任何类型" class="headerlink" title="4.any任何类型"></a>4.any任何类型</h2><blockquote>
+<p>any类型的变量可以被赋值为 任意数据类型</p>
+<p>任意数据类型的变量都可以直接被赋值为 any 类型的数据</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">a</span>:<span class="built_in">number</span> = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">b</span>:<span class="built_in">any</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">c</span>:<span class="built_in">any</span> = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">a = c</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>别把TypeScript写成了AnyScript！！！</li>
+</ul>
+<h2 id="5-对象定义类型-interface-接口"><a href="#5-对象定义类型-interface-接口" class="headerlink" title="5.对象定义类型 interface 接口"></a>5.对象定义类型 interface 接口</h2><ul>
+<li>interface 是一种定义对象形状（结构）的类型工具</li>
+</ul>
+<blockquote>
+<p>支持 重复 定义 同一个接口类型，且可以增加字段</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用户列表 userList  </span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="built_in">string</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="built_in">number</span>,</span><br><span class="line">    <span class="attr">like</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;,</span><br><span class="line">    <span class="attr">avater</span>:<span class="built_in">string</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">user1</span>:<span class="title class_">User</span> = &#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="number">20</span>,</span><br><span class="line">    <span class="attr">like</span>:[<span class="string">&#x27;喝酒&#x27;</span>],</span><br><span class="line">    <span class="attr">avater</span>:<span class="string">&#x27;xxxx.png&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-可选参数"><a href="#6-可选参数" class="headerlink" title="6.可选参数 ?"></a>6.可选参数 <code>?</code></h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="built_in">string</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="built_in">number</span>,</span><br><span class="line">    <span class="attr">like</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;,</span><br><span class="line">    <span class="attr">avater</span>?:<span class="built_in">string</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">user1</span>:<span class="title class_">User</span> = &#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="number">20</span>,</span><br><span class="line">    <span class="attr">like</span>:[<span class="string">&#x27;喝酒&#x27;</span>],</span><br><span class="line">    <span class="attr">avater</span>:<span class="string">&#x27;xxxx.png&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">user2</span>:<span class="title class_">User</span> = &#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="string">&#x27;张麻子&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="number">24</span>,</span><br><span class="line">    <span class="attr">like</span>:[<span class="string">&#x27;打豆豆&#x27;</span>],</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>interface 新增字段定义</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="built_in">string</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="built_in">number</span>,</span><br><span class="line">    <span class="attr">like</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;,</span><br><span class="line">    <span class="attr">avater</span>?:<span class="built_in">string</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">user1</span>:<span class="title class_">User</span> = &#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="string">&#x27;xxx&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="number">20</span>,</span><br><span class="line">    <span class="attr">like</span>:[<span class="string">&#x27;喝酒&#x27;</span>],</span><br><span class="line">    <span class="attr">avater</span>:<span class="string">&#x27;xxxx.png&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="attr">email</span>?:<span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line">user1.<span class="property">email</span> = <span class="string">&#x27;xxxx@qq.com&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>继承</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="built_in">string</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="built_in">number</span>,</span><br><span class="line">    <span class="attr">like</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;,</span><br><span class="line">    <span class="attr">avater</span>?:<span class="built_in">string</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">interface</span> VIP <span class="keyword">extends</span> <span class="title class_">User</span>&#123;</span><br><span class="line">    <span class="attr">greade</span>:<span class="built_in">number</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">vipUser</span>:<span class="variable constant_">VIP</span> =&#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="string">&#x27;张麻子&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="number">24</span>,</span><br><span class="line">    <span class="attr">like</span>:[<span class="string">&#x27;打豆豆&#x27;</span>],</span><br><span class="line">    <span class="attr">greade</span>:<span class="number">3</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对象数组 （用户列表）</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="attr">nickName</span>:<span class="built_in">string</span>,</span><br><span class="line">    <span class="attr">age</span>:<span class="built_in">number</span>,</span><br><span class="line">    <span class="attr">like</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;,</span><br><span class="line">    <span class="attr">avater</span>?:<span class="built_in">string</span>,	</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">userList</span>:<span class="title class_">Array</span>&lt;<span class="title class_">User</span>&gt; = [&#123;<span class="attr">nickName</span>:<span class="string">&#x27;&#x27;</span>...&#125;]   </span><br><span class="line"><span class="keyword">const</span> <span class="attr">userList</span>:<span class="title class_">User</span>[] = [&#123;<span class="attr">nickName</span>:<span class="string">&#x27;&#x27;</span>...&#125;] </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>练习</li>
+</ul>
+<blockquote>
+<p>结合 <code>interface</code> 接口定义、可选参数、接口重复定义扩展字段、接口继承、对象数组定义等知识点，完成以下需求：</p>
+<ol>
+<li><p><strong>基础接口定义</strong>：定义一个 <code>Product</code> 接口，包含电商商品的基础信息：</p>
+<ul>
+<li>必选字段：<code>productName</code>（商品名称，字符串类型）、<code>price</code>（价格，数字类型）、<code>category</code>（分类，字符串数组类型）；</li>
+<li>可选字段：<code>imgUrl</code>（商品图片地址，字符串类型）。</li>
+</ul>
+</li>
+<li><p><strong>扩展接口字段</strong>：通过重复定义 <code>Product</code> 接口，新增可选字段 <code>stock</code>（库存，数字类型）、<code>sales</code>（销量，数字类型）。</p>
+</li>
+<li><p><strong>继承扩展 VIP 商品</strong>：定义 <code>VIPProduct</code> 接口，继承 <code>Product</code> 接口，并新增必选字段 <code>discount</code>（折扣率，数字类型，如 0.8 表示 8 折）、可选字段 <code>vipOnly</code>（是否仅 VIP 购买，布尔类型）。</p>
+</li>
+<li><p><strong>创建商品数据</strong>：</p>
+<ul>
+<li>创建 2 个普通商品对象（<code>product1</code>、<code>product2</code>），其中一个不填 <code>imgUrl</code>，一个补充 <code>stock</code> 和 <code>sales</code>；</li>
+<li>创建 1 个 VIP 商品对象（<code>vipProduct1</code>），包含所有必选字段和至少 1 个可选字段；</li>
+<li>定义商品列表数组 <code>productList</code>（包含普通商品和 VIP 商品），数组类型为 <code>Array&lt;Product | VIPProduct&gt;</code>（或等价写法）。</li>
+</ul>
+</li>
+<li><p><strong>验证输出</strong>：打印所有商品对象和商品列表，确保类型匹配无报错。</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="attr">productName</span>:<span class="built_in">string</span>,</span><br><span class="line">    <span class="attr">price</span>:<span class="built_in">number</span>,</span><br><span class="line">    <span class="attr">category</span>:<span class="title class_">Array</span>&lt;<span class="built_in">string</span>&gt;,</span><br><span class="line">    <span class="attr">imgUrl</span>?:<span class="built_in">string</span>,	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="attr">stock</span>?:<span class="built_in">number</span>   <span class="comment">// 库存</span></span><br><span class="line">    <span class="attr">sales</span>?:<span class="built_in">number</span>   <span class="comment">// 销量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">VIPProduct</span> <span class="keyword">extends</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="attr">discount</span>:<span class="built_in">number</span> <span class="comment">// 折扣率</span></span><br><span class="line">    <span class="attr">vipOnly</span>:<span class="built_in">boolean</span> <span class="comment">// 是否仅VIP购买</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="attr">product1</span>:<span class="title class_">Product</span> = &#123;</span><br><span class="line">    <span class="attr">productName</span>:<span class="string">&#x27;牙刷&#x27;</span>,</span><br><span class="line">    <span class="attr">price</span>:<span class="number">10</span>,</span><br><span class="line">    <span class="attr">category</span>:[<span class="string">&#x27;电商&#x27;</span>,<span class="string">&#x27;日用品&#x27;</span>],</span><br><span class="line">    <span class="attr">stock</span>:<span class="number">1000</span>,</span><br><span class="line">    <span class="attr">sales</span>:<span class="number">1000</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">product2</span>:<span class="title class_">Product</span> = &#123;</span><br><span class="line">    <span class="attr">productName</span>:<span class="string">&#x27;洗面奶&#x27;</span>,</span><br><span class="line">    <span class="attr">price</span>:<span class="number">30</span>,</span><br><span class="line">    <span class="attr">category</span>:[<span class="string">&#x27;电商&#x27;</span>,<span class="string">&#x27;日用品&#x27;</span>],</span><br><span class="line">    <span class="attr">imgUrl</span>:<span class="string">&#x27;./example.png&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">product2 = &#123;</span><br><span class="line">    ...product2,</span><br><span class="line">    <span class="attr">stock</span>:<span class="number">120</span>,</span><br><span class="line">    <span class="attr">sales</span>:<span class="number">100</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">vipProduct1</span>:<span class="title class_">VIPProduct</span> = &#123;</span><br><span class="line">    <span class="attr">productName</span>:<span class="string">&quot;无敌霹雳爆炸螺旋升天Plus版 牙刷&quot;</span>,</span><br><span class="line">    <span class="attr">price</span>:<span class="number">10000</span>,</span><br><span class="line">    <span class="attr">category</span>:[<span class="string">&#x27;电商&#x27;</span>,<span class="string">&#x27;日用品&#x27;</span>,<span class="string">&#x27;VIP&#x27;</span>],</span><br><span class="line">    <span class="attr">discount</span>:<span class="number">0.9</span>, <span class="comment">// 折扣率</span></span><br><span class="line">    <span class="attr">vipOnly</span>:<span class="literal">true</span>, <span class="comment">// 是否仅VIP购买</span></span><br><span class="line">    <span class="attr">imgUrl</span>:<span class="string">&#x27;./VIP.png&#x27;</span>,	</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="attr">productList1</span>:(<span class="title class_">Product</span>|<span class="title class_">VIPProduct</span>)[] = [product1,product2,vipProduct1]</span><br><span class="line"><span class="keyword">let</span> <span class="attr">productList2</span>:<span class="title class_">Array</span>&lt;<span class="title class_">Product</span>|<span class="title class_">VIPProduct</span>&gt; = [product1,product2,vipProduct1]</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;普通商品1：&#x27;</span>,product1);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;普通商品1：&#x27;</span>,product2);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;普通商品1：&#x27;</span>,vipProduct1);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\n商品列表：&#x27;</span>,productList1);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -268,6 +388,10 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
 
         
 
@@ -278,8 +402,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2026/03/16/JavaScript/" rel="next" title="JavaScript">
-                  JavaScript <i class="fa fa-angle-right"></i>
+                <a href="/2026/03/16/JavaScript%E5%9F%BA%E7%A1%80/" rel="next" title="JavaScript基础">
+                  JavaScript基础 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
