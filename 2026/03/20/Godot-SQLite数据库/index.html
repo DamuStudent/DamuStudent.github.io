@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言为了更好的为我的毕设项目服务，我发现普通的 resource类 无法满足我对数据存储的需要，我开始寻找新的办法，我尝试使用 MySQL ，我发现 MySQL 更适合使用在大型的复杂的联网的多人的商业项目中，和我并不适配。 最后，我找到了SQLite，这是一个 Godot 中的插件数据库，听上去非常适合我的小项目  参考教程：godot4.X中的SQLite使用教程_哔哩哔哩_bilibili">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Godot - SQLite数据库">
+<meta property="og:url" content="http://example.com/2026/03/20/Godot-SQLite%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="小沐的博客">
+<meta property="og:description" content="前言为了更好的为我的毕设项目服务，我发现普通的 resource类 无法满足我对数据存储的需要，我开始寻找新的办法，我尝试使用 MySQL ，我发现 MySQL 更适合使用在大型的复杂的联网的多人的商业项目中，和我并不适配。 最后，我找到了SQLite，这是一个 Godot 中的插件数据库，听上去非常适合我的小项目  参考教程：godot4.X中的SQLite使用教程_哔哩哔哩_bilibili">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260320131444806.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260324120612264.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260324120639030.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260320132527647.png">
+<meta property="og:image" content="http://example.com/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260320133911698.png">
+<meta property="article:published_time" content="2026-03-20T02:47:58.000Z">
+<meta property="article:modified_time" content="2026-03-24T05:38:56.407Z">
+<meta property="article:author" content="小沐">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260320131444806.png">
+
+
+<link rel="canonical" href="http://example.com/2026/03/20/Godot-SQLite%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/03/20/Godot-SQLite%E6%95%B0%E6%8D%AE%E5%BA%93/","path":"2026/03/20/Godot-SQLite数据库/","title":"Godot - SQLite数据库"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Godot - SQLite数据库 | 小沐的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">小沐的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">代码能止肚饿</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小沐"
+      src="/images/avatar_1.jpg">
+  <p class="site-author-name" itemprop="name">小沐</p>
+  <div class="site-description" itemprop="description">我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/20/Godot-SQLite%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.jpg">
+      <meta itemprop="name" content="小沐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沐的博客">
+      <meta itemprop="description" content="我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Godot - SQLite数据库 | 小沐的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Godot - SQLite数据库
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-03-20 10:47:58" itemprop="dateCreated datePublished" datetime="2026-03-20T10:47:58+08:00">2026-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-03-24 13:38:56" itemprop="dateModified" datetime="2026-03-24T13:38:56+08:00">2026-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/" itemprop="url" rel="index"><span itemprop="name">Godot</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/Godot%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">Godot学习笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>为了更好的为我的毕设项目服务，我发现普通的 resource类 无法满足我对数据存储的需要，我开始寻找新的办法，我尝试使用 MySQL ，我发现 MySQL 更适合使用在大型的复杂的联网的多人的商业项目中，和我并不适配。</p>
+<p>最后，我找到了SQLite，这是一个 Godot 中的插件数据库，听上去非常适合我的小项目</p>
+<blockquote>
+<p>参考教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xMXTYKE9f/?spm_id_from=333.337.search-card.all.click&vd_source=b8977fe632fe1f80844096e7150e1003">godot4.X中的SQLite使用教程_哔哩哔哩_bilibili</a></p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="一、下载SQLite"><a href="#一、下载SQLite" class="headerlink" title="一、下载SQLite"></a>一、下载SQLite</h1><p>我尝试在 Godot 中搜索 sqlite 并下载，我发现行不通，网络非常不稳定，</p>
+<p><img src="/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260320131444806.png" alt="image-20260320131444806"></p>
+<p>好吧，至少一般情况下我们就是从这里下载的，最后我通过 github 的文件地址把它下下来了，我们新建场景，根节点选择 <strong>Control</strong> 为它附加脚本，打上第一行代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># sql_control.gd</span><br><span class="line">extends Control</span><br><span class="line">var database : SQLite</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你发现你的 <strong>SQLite</strong> 呈绿色高亮，说明你的插件安装完全正确！</p>
+</blockquote>
+<h1 id="二、DB-browser-for-SQLite"><a href="#二、DB-browser-for-SQLite" class="headerlink" title="二、DB browser for SQLite"></a>二、DB browser for SQLite</h1><ul>
+<li>这是一个 SQLite 的图形化工具</li>
+</ul>
+<blockquote>
+<p>下载地址:  <a target="_blank" rel="noopener" href="https://sqlitebrowser.org/dl/">Downloads - DB Browser for SQLite</a></p>
+</blockquote>
+<ul>
+<li>在 <strong>SQLiteBrowser</strong> 中导航到我们的数据库</li>
+</ul>
+<blockquote>
+<p>确保你已经创建了数据库和基础的表，根据数据库创建的地址导航，接下来你就可以看到数据库中<strong>tables</strong> 中有你的表了</p>
+</blockquote>
+<ul>
+<li>图样：</li>
+</ul>
+<p><img src="/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260324120612264.png" alt="image-20260324120612264"></p>
+<p><img src="/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260324120639030.png" alt="image-20260324120639030"></p>
+<h1 id="三、SQLite简单使用环境搭建"><a href="#三、SQLite简单使用环境搭建" class="headerlink" title="三、SQLite简单使用环境搭建"></a>三、SQLite简单使用环境搭建</h1><blockquote>
+<p>⚡请注意，在SQLite为我们封装的常用方法中，条件表达式一定是 <strong><code>列名 = &#39;值&#39;</code></strong></p>
+<p>⚡请注意，SQLite 返回的大多数查询结果为 <strong>数组</strong>！</p>
+</blockquote>
+<ul>
+<li>创建数据库</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">extends Control  			# 当前脚本继承自 Control 节点（管理类场景）</span><br><span class="line"></span><br><span class="line">var database : SQLite  		# 声明一个 SQLite 类型的变量，用于操作数据库</span><br><span class="line"></span><br><span class="line"># 当节点首次进入场景树时调用（初始化逻辑）</span><br><span class="line">func _ready() -&gt; void:</span><br><span class="line">    database = SQLite.new()  				# 创建 SQLite 实例</span><br><span class="line">    database.path = &quot;res://data.db&quot;  		# 设置数据库文件路径（项目目录下的 data.db）</span><br><span class="line">    database.open_db()  					# 打开数据库连接</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当你运行当前场景，检查输出，如若无误，应该输出：</p>
+</blockquote>
+<p><img src="/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260320132527647.png" alt="image-20260320132527647"></p>
+<ul>
+<li>返回 2d 场景，为根节点添加如下子节点：</li>
+</ul>
+<p><img src="/%5Cimages%5CGodot%5CGodotSQLite%E6%95%B0%E6%8D%AE%E5%BA%93%5Cimage-20260320133911698.png" alt="image-20260320133911698"></p>
+<ul>
+<li>连接按钮信号</li>
+</ul>
+<blockquote>
+<p>为所有的脚本连接所有按钮的 按下信号</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># 新建表</span><br><span class="line">func _on_create_table_button_down() -&gt; void:</span><br><span class="line">	pass # Replace with function body.</span><br><span class="line"></span><br><span class="line"># 自定义搜索数据</span><br><span class="line">func _on_custon_select_button_down() -&gt; void:</span><br><span class="line">	pass # Replace with function body.</span><br><span class="line"></span><br><span class="line"># 删除数据</span><br><span class="line">func _on_delete_data_button_down() -&gt; void:</span><br><span class="line">	pass # Replace with function body.</span><br><span class="line"></span><br><span class="line"># 修改数据</span><br><span class="line">func _on_update_data_button_down() -&gt; void:</span><br><span class="line">	pass # Replace with function body.</span><br><span class="line"></span><br><span class="line"># 搜索数据</span><br><span class="line">func _on_select_data_button_down() -&gt; void:</span><br><span class="line">	pass # Replace with function body.</span><br><span class="line"></span><br><span class="line"># 插入数据</span><br><span class="line">func _on_insert_data_button_down() -&gt; void:</span><br><span class="line">	pass # Replace with function body.</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>新建表按钮</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func _on_create_table_button_down() -&gt; void:</span><br><span class="line">	var table = &#123;</span><br><span class="line">		&quot;id&quot;:&#123;</span><br><span class="line">			&quot;data_type&quot;:&quot;int&quot;,</span><br><span class="line">			&quot;primary_key&quot;:true,</span><br><span class="line">			&quot;not_null&quot;:true,</span><br><span class="line">			&quot;auto_increment&quot;:true</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;name&quot;:&#123;</span><br><span class="line">			&quot;data_type&quot;:&quot;text&quot;,</span><br><span class="line">		&#125;,</span><br><span class="line">		&quot;score&quot;:&#123;</span><br><span class="line">			&quot;data_type&quot;:&quot;int&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	database.create_table(&quot;players&quot;,table)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将表的列头组装成一个 <strong>字典</strong> ，这个字典的每一个值对应着列头的数据属性，也是 一个字典</p>
+<p>列头属性：</p>
+<ul>
+<li>data_type : 定义字段的数据类型</li>
+<li>primary_key : 将该字段设为主键（Primary Key）</li>
+<li>not_null : 强制该字段不能为空</li>
+<li>auto_increment : 启用自动递增</li>
+</ul>
+</blockquote>
+<ul>
+<li>插入表数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@onready var 姓名: TextEdit = $姓名</span><br><span class="line">@onready var 分数: TextEdit = $分数</span><br><span class="line"></span><br><span class="line">func _on_insert_data_button_down() -&gt; void:</span><br><span class="line">	var data = &#123;</span><br><span class="line">		&quot;name&quot;:姓名.text,</span><br><span class="line">		&quot;score&quot;:int(分数.text)</span><br><span class="line">	&#125;</span><br><span class="line">	database.insert_row(&quot;players&quot;,data)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将插入的数据组装成一个 <strong>字典</strong></p>
+<p>插入语句：<code>database.insert_row(&quot;表名&quot;,对象数据)</code></p>
+</blockquote>
+<ul>
+<li>搜索表数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">func _on_select_data_button_down() -&gt; void:</span><br><span class="line">	print(database.select_rows(&quot;players&quot;,&quot;score &gt; 10&quot;,[&quot;*&quot;]))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>select_rows()</code> 方法要求三个参数：”表名”，”筛选条件”，”返回字段”</p>
+<p>如代码中所示，在 <strong>database</strong> 数据库中的 <strong>players</strong> 表下筛选 <strong>score &gt; 10</strong> 的 <strong>所有字段</strong></p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">database.select_rows(&quot;players&quot;,&quot;score &gt; 10&quot;,[&quot;name&quot;])</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>与刚才的区别只在于，返回的字段只要 <strong>name</strong></p>
+</blockquote>
+<ul>
+<li>修改表数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">func _on_update_data_button_down() -&gt; void:</span><br><span class="line">	database.update_rows(&quot;players&quot;,&quot;name = &#x27;&quot; + 姓名.text + &quot;&#x27;&quot;,&#123;&quot;score&quot;: int(分数.text)&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在 <strong>players</strong> 表中修改所有 <strong>name字段</strong> 等于 <strong>姓名.text</strong> 的 <strong>score字段</strong> 为 <strong>分数.text</strong></p>
+<p>显而易见你需要注意到的是</p>
+<p>⚡<code>update_rows()</code> 方法中的最后一个 <strong>新的数据</strong> 是一个字典！</p>
+</blockquote>
+<ul>
+<li>⚡自定义搜索表数据</li>
+</ul>
+<blockquote>
+<p>实际上，教程里着重演示了，他创建了两个表，一个是players表，一个是playerInfo表</p>
+<p>players表字段：id，name，score，playerInfoId</p>
+<p>playerInfo表字段：id，address</p>
+<p>在普通的<strong>sql</strong>语句中，我们想在查询时同时根据 <strong>players表</strong> 中的字段 <strong>playerInfoId</strong> 查询到 <strong>playerInfo表</strong> 中的 <strong>address</strong> 字段我们应该这么写：</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> players</span><br><span class="line"><span class="keyword">join</span> playerInfo <span class="keyword">on</span> playerInfo.id <span class="operator">=</span> players.playerinfoid</span><br><span class="line"><span class="keyword">where</span> score <span class="operator">&gt;</span> <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>你最终会得到这两个表的联合</p>
+<p>学过数据库的朋友肯定可以清楚的发现，这就是一个典型的一对多模型</p>
+<p>而学过数据库的肯定也更熟悉于 <strong>SQL</strong> 语句而不是SQLite为我们封装好的，虽然确实更简便了，实际上我们完全可以在 Godot 中使用 SQL 语句：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func _on_custon_select_button_down() -&gt; void:</span><br><span class="line">	database.query(&quot;</span><br><span class="line">	select * from players</span><br><span class="line">	join playerInfo on playerInfo.id = players.playerInfoid</span><br><span class="line">	where score &gt; </span><br><span class="line">	&quot; + 分数.text)</span><br><span class="line">	for i in database.query_result:</span><br><span class="line">		print(i)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚡注意！当你在 SQLiteBrowser 中修改了数据，切记写入更改，也就是 Ctrl + S</p>
+<p>上面代码中的<code>query_result</code>我推测是 SQLite 维护的数组变量，当 sql 语句执行成功后，自动把数据填充入该变量中，通过函数遍历，可对搜索出来的每一条数据进行操作 </p>
+</blockquote>
+<ul>
+<li>⚡存储图片和加载图片！</li>
+</ul>
+<blockquote>
+<p>表格数据类型：BLOB</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func _on_store_image_button_down() -&gt; void:</span><br><span class="line">	var image := preload(&quot;res://assents/图片/家传粗糙大宝剑.png&quot;)</span><br><span class="line">	var pba = image.get_image().save_png_to_buffer()</span><br><span class="line">	database.update_rows(&quot;players&quot;,&quot;name = &#x27;&quot; + 姓名.text + &quot;&#x27;&quot;,&#123;&quot;Img&quot; : pba&#125;)</span><br><span class="line"></span><br><span class="line">func _on_load_image_button_down() -&gt; void:</span><br><span class="line">	database.select_rows(&quot;players&quot;,&quot;name = &#x27;ldm&#x27;&quot;,[&quot;*&quot;])</span><br><span class="line">	for i in database.query_result:</span><br><span class="line">		var image = Image.new()</span><br><span class="line">		image.load_png_from_buffer(i.Img)</span><br><span class="line">		var texture = ImageTexture.create_from_image(image)</span><br><span class="line">		texture_rect.texture = texture</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我将逐条解释上述代码的含义</p>
+<ul>
+<li>图片上传数据库</li>
+</ul>
+<p><code>var image := preload(&quot;res://assents/图片/家传粗糙大宝剑.png&quot;)</code> 预加载本地路径的图片资源，**<code>preload</code>**返回的是一个 <strong>Texture2D</strong> 对象（Godot 中图片资源的通用类型）</p>
+<p><code>var pba = image.get_image().save_png_to_buffer()</code> <strong><code>image.get_image()</code><strong>提取原始 <strong><code>Image</code></strong> 对象，是一个未压缩的</strong>RGBA数组</strong> ，而**<code>save_png_to_buffer()</code>** 则将 <strong><code>Image</code></strong> 对象编码为 PNG 格式的二进制数据（<code>PackedByteArray</code>），一个包含PNG文件的完整二进制数据，这样才能直接存储到 BLOB 字段中</p>
+<ul>
+<li>图片从数据库加载到本地</li>
+</ul>
+<p><code>var image = Image.new()   image.load_png_from_buffer(i.Img)</code> 这两句的意思是，image为Image实例，将查询结果中的 <strong>二进制PNG数据</strong> 解析为 Image 对象</p>
+<p><code>var texture = ImageTexture.create_from_image(image)</code> 将 <strong>Image对象</strong> 转成 <strong>Texture2D</strong> 对象，供下面的<strong>TextureRect节点</strong> 显示</p>
+<ul>
+<li>综上所述，不论是上传还是下载，都需要转两次格式</li>
+</ul>
+<p>上传：<strong>Texture2D</strong>  &#x3D;&gt;  <strong>Image对象（RGBA数组）</strong>  &#x3D;&gt;  <strong>PNG二进制数据</strong>  &#x3D;&gt;  存储到 <strong>BLOB</strong> 字段中</p>
+<p>下载： <strong>PNG二进制数据</strong>  &#x3D;&gt;  <strong>Image对象（RGBA数组）</strong> &#x3D;&gt;  <strong>Texture2D</strong>  &#x3D;&gt;  显示到 <strong>UI节点</strong> 中</p>
+</blockquote>
+<h1 id="四、为项目设计数据库"><a href="#四、为项目设计数据库" class="headerlink" title="四、为项目设计数据库"></a>四、为项目设计数据库</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/19/Godot-%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3/" rel="prev" title="Godot - 毕设项目文档">
+                  <i class="fa fa-angle-left"></i> Godot - 毕设项目文档
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/24/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-Player/" rel="next" title="Godot - 项目日志 - Player">
+                  Godot - 项目日志 - Player <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小沐</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

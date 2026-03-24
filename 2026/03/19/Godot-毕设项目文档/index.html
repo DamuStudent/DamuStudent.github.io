@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言 是的，我将尝试把这个项目作为我的毕设  项目名称     -    深渊武库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Godot - 毕设项目文档">
+<meta property="og:url" content="http://example.com/2026/03/19/Godot-%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="小沐的博客">
+<meta property="og:description" content="前言 是的，我将尝试把这个项目作为我的毕设  项目名称     -    深渊武库">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-19T15:37:49.000Z">
+<meta property="article:modified_time" content="2026-03-24T05:37:46.603Z">
+<meta property="article:author" content="小沐">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2026/03/19/Godot-%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/03/19/Godot-%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3/","path":"2026/03/19/Godot-毕设项目文档/","title":"Godot - 毕设项目文档"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Godot - 毕设项目文档 | 小沐的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">小沐的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">代码能止肚饿</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小沐"
+      src="/images/avatar_1.jpg">
+  <p class="site-author-name" itemprop="name">小沐</p>
+  <div class="site-description" itemprop="description">我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/19/Godot-%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.jpg">
+      <meta itemprop="name" content="小沐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沐的博客">
+      <meta itemprop="description" content="我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Godot - 毕设项目文档 | 小沐的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Godot - 毕设项目文档
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-03-19 23:37:49" itemprop="dateCreated datePublished" datetime="2026-03-19T23:37:49+08:00">2026-03-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-03-24 13:37:46" itemprop="dateModified" datetime="2026-03-24T13:37:46+08:00">2026-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/" itemprop="url" rel="index"><span itemprop="name">Godot</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/Godot%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">Godot毕设项目</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>是的，我将尝试把这个项目作为我的毕设</li>
+</ul>
+<h1 id="项目名称-深渊武库"><a href="#项目名称-深渊武库" class="headerlink" title="项目名称     -    深渊武库"></a>项目名称     -    <em>深渊武库</em></h1><span id="more"></span>
+
+<h1 id="核心玩法"><a href="#核心玩法" class="headerlink" title="核心玩法"></a>核心玩法</h1><blockquote>
+<p>这是一个 养成 刷武器 的游戏，玩家根据等级进入各种副本中刷取武器，并解锁之后的副本</p>
+</blockquote>
+<h2 id="1-玩家系统"><a href="#1-玩家系统" class="headerlink" title="1.玩家系统"></a>1.玩家系统</h2><h3 id="1-属性"><a href="#1-属性" class="headerlink" title="1.属性"></a>1.属性</h3><ul>
+<li>基本属性：</li>
+</ul>
+<blockquote>
+<p>攻击力</p>
+<p>最终增伤比</p>
+<p>生命值</p>
+<p>最终免伤比</p>
+<p>攻速</p>
+<p>暴击率</p>
+<p>暴击伤害</p>
+<p>追击率</p>
+<p>追击伤害</p>
+<p>吸血率</p>
+<p>破甲率</p>
+<p>闪避率</p>
+<p>移动速度</p>
+<p>生命恢复</p>
+</blockquote>
+<h3 id="2-等级"><a href="#2-等级" class="headerlink" title="2.等级"></a>2.等级</h3><blockquote>
+<p>每升一级获得一点 <strong>升级点数</strong> ，可投入到 <strong>天赋</strong> 中</p>
+<p>每升一级 <strong>攻击力</strong> + 1，<strong>生命值</strong> + 1</p>
+<p>1级玩家属性，攻击力：1，生命值：1，是的碰一下就死</p>
+</blockquote>
+<ul>
+<li><p>1 - 10 </p>
+</li>
+<li><p>11 - 20 </p>
+</li>
+<li><p>21 - 30  </p>
+</li>
+<li><p>31 - 40  </p>
+</li>
+<li><p>41 - 50  </p>
+</li>
+<li><p>51 - 60  </p>
+</li>
+<li><p>61 - 70  </p>
+</li>
+<li><p>71 - 80  </p>
+</li>
+<li><p>81 - 90  </p>
+</li>
+<li><p>91 - 100  </p>
+</li>
+<li><p>101 - 110  </p>
+</li>
+<li><p>111 - 120  </p>
+</li>
+<li><p>121 - 130  </p>
+</li>
+<li><p>131 - 140  </p>
+</li>
+<li><p>141 - 150  </p>
+</li>
+<li><p>151 - 160  </p>
+</li>
+<li><p>161 - 170  </p>
+</li>
+<li><p>171 - 180  </p>
+</li>
+<li><p>181 - 190  </p>
+</li>
+<li><p>191 - 200</p>
+</li>
+</ul>
+<h3 id="3-天赋系统"><a href="#3-天赋系统" class="headerlink" title="3.天赋系统"></a>3.天赋系统</h3><ul>
+<li>天赋系统的设计应该跟随流派，不同流派可以走不同的天赋，而初始应该分为生命值和体力值，后续进行分叉</li>
+<li>根节点：攻击力 + 1，生命值 + 1</li>
+</ul>
+<h2 id="2-武器与装备系统"><a href="#2-武器与装备系统" class="headerlink" title="2.武器与装备系统"></a>2.武器与装备系统</h2><h3 id="1-武器"><a href="#1-武器" class="headerlink" title="1.武器"></a>1.武器</h3><ul>
+<li><p><strong>武器等级</strong> 跟随玩家等级，当玩家等级变高时可以通过 <strong>锻造大厅</strong> - <strong>锻造</strong> 消耗 <strong>深渊黄石</strong> 升级武器</p>
+</li>
+<li><p>**武器词缀 ** 总共拥有四条词缀，拥有 <strong>武器词缀刷新系统</strong> ，刷新一条词缀消耗 <strong>10 深渊蓝石</strong>，刷到满意词缀可固定，可以消耗 <strong>100 深渊蓝石</strong> 设置 <strong>武器词缀类型偏好</strong> 当玩家设置偏好后 每次刷新将有 <strong>50%</strong> 的概率刷出偏好类型</p>
+</li>
+<li><p><strong>武器类型分类</strong></p>
+<ul>
+<li><strong>近战</strong></li>
+<li><strong>远程</strong></li>
+<li><strong>召唤</strong></li>
+<li><strong>工程</strong></li>
+<li><strong>深渊（？）</strong></li>
+</ul>
+</li>
+<li><p><strong>武器特殊效果</strong></p>
+<ul>
+<li>看武器描述</li>
+</ul>
+</li>
+<li><p><strong>武器流派分类</strong> 武器流派不会给玩家显示，但是会影响到武器词缀刷新，比如暴击流武器的初始词缀必定带一条暴击词缀</p>
+<blockquote>
+<p>暴击</p>
+<p>追击</p>
+<p>吸血</p>
+<p>自伤</p>
+<p>叠盾</p>
+<p>血牛</p>
+<p>反伤</p>
+<p>持续伤害</p>
+<p>单召唤物</p>
+<p>群召唤物</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2-装备"><a href="#2-装备" class="headerlink" title="2.装备"></a>2.装备</h3><ul>
+<li><strong>装备位置</strong></li>
+</ul>
+<blockquote>
+<p>头盔</p>
+<p>衣服</p>
+<p>鞋子</p>
+<p>项链 200级解锁</p>
+<p>戒指 200级解锁</p>
+</blockquote>
+<ul>
+<li><strong>装备等级</strong><ul>
+<li>跟随玩家等级</li>
+</ul>
+</li>
+<li><strong>装备词缀</strong><ul>
+<li>每件装备拥有 2 条词缀</li>
+</ul>
+</li>
+<li><strong>特殊效果</strong><ul>
+<li>看装备描述</li>
+</ul>
+</li>
+<li><strong>套装效果</strong><ul>
+<li>套装</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-词缀"><a href="#3-词缀" class="headerlink" title="3.词缀"></a>3.词缀</h3><ul>
+<li><p><strong>词缀类型</strong> 分为攻击类词缀，生命类词缀，技巧类词缀，随机类词缀，其中随机类词缀将包含前三种词缀</p>
+</li>
+<li><p><strong>词缀品质</strong> 分为普通词缀、稀有词缀和高级词缀</p>
+<blockquote>
+<p>普通词缀：消耗 <strong>深渊蓝石</strong></p>
+<p>稀有词缀：同普通词缀，有些许限制</p>
+<p>史诗词缀：消耗 <strong>深渊圣蓝石</strong></p>
+</blockquote>
+</li>
+<li><p><strong>词缀汇总表</strong>（ 增粗 + 斜体 为高级词缀，加粗 为稀有词缀）</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="1-攻击类词缀"><a href="#1-攻击类词缀" class="headerlink" title="1.攻击类词缀"></a>1.<strong>攻击类词缀</strong></h4><p><em><strong>最终增伤比</strong></em>  - [5% - 20%] - 伤害基础上 * <em><strong>最终增伤比</strong></em>，该词条在所有造成伤害计算完毕后独立计算</p>
+<p>基础攻击力 - [武器等级 * 1 - 武器等级 * 5] - 玩家面板攻击力 + <strong>基础攻击力</strong></p>
+<p>攻击百分比 - [10% - 50%] - 在<strong>基础攻击力</strong>上增加 <strong>攻击百分比</strong> * <strong>基础攻击力</strong> 的攻击力</p>
+<p><strong>攻速百分比</strong> - [10% - 20%] - <strong>衰减限制</strong>：人物在基础状态最高可允许攻速为 100% - <strong>最终攻速</strong> &#x3D; min( <strong>基础攻速</strong> &#x2F; (1 + <strong>词缀总加成</strong> + <strong>全局加成</strong>), <strong>衰减上限</strong> )</p>
+<p>暴击率 - [10% - 30%] - 出现暴击的概率，当超出100%后<strong>暴击率</strong>按0.5的倍率转换为<strong>暴击伤害</strong>，超出300%后倍率为0.3</p>
+<p>暴击伤害 - [10% - 30%] - 在**基础暴击伤害（100%）**上 + <strong>暴击伤害</strong></p>
+<p>追击率 - [10% - 30%] - 出现追击的概率，当超出100%后<strong>追击率</strong>按0.5的倍率转换为<strong>追击伤害</strong>，超出300%后倍率为0.3</p>
+<p>追击伤害 - [10% - 30%] - 在**基础追击伤害（50%）**上 +  <strong>追击伤害</strong></p>
+<p>破甲率 - [10% - 30%]</p>
+<h4 id="2-生命类词缀"><a href="#2-生命类词缀" class="headerlink" title="2.生命类词缀"></a>2.生命类词缀</h4><p><em><strong>最终免伤比</strong></em> - [5% - 20%] - 免疫伤害的 <em><strong>最终免伤比</strong></em>，该词条在所有受到伤害计算完毕后独立计算</p>
+<p>基础生命值 - [装备等级 * 1 - 装备等级 * 5] - 玩家面板生命值 + <strong>基础生命值</strong></p>
+<p>生命百分比 - [10% - 50%] - 在<strong>基础生命值</strong>上增加 <strong>生命百分比</strong> * <strong>基础生命值</strong> 的生命值</p>
+<p><strong>吸血率</strong> - [10% - 30%]</p>
+<p>吸血增加 - [10% - 30%] - ？</p>
+<p>生命恢复 - [装备等级 * 1 - 装备等级 * 5]</p>
+</blockquote>
+<h3 id="4-锻造大厅"><a href="#4-锻造大厅" class="headerlink" title="4.锻造大厅"></a>4.锻造大厅</h3><ul>
+<li><p><strong>锻造</strong> 消耗 <strong>深渊黄石</strong> 提升武器和装备<strong>等级</strong></p>
+</li>
+<li><p><strong>重铸</strong> 消耗 <strong>深渊蓝石</strong> 和 <strong>深渊圣蓝石</strong> 刷新武器和装备<strong>词缀</strong></p>
+</li>
+<li><p><strong>融合</strong> 消耗 <strong>深渊圣黄石</strong> 融合两把武器，失败返回两把武器，成功则返回新武器</p>
+</li>
+</ul>
+<h2 id="3-成就系统"><a href="#3-成就系统" class="headerlink" title="3.成就系统"></a>3.成就系统</h2><p>实现思路：通过信号告知系统，在告知系统后信号断连</p>
+<ul>
+<li>普通类</li>
+</ul>
+<blockquote>
+<ol>
+<li>见血 - 造成 10 伤害</li>
+<li>屠戮 - 造成 1000 伤害</li>
+<li>弱者恒弱 - 造成 100000 伤害</li>
+<li>强者恒强 - 造成  10000000 名敌人</li>
+<li>恢复 - 回复 10 生命</li>
+<li>治疗 - 回复 1000 生命</li>
+<li>不朽之血 - 回复 100000 生命</li>
+<li>生命之泉 - 回复 10000000 生命</li>
+<li></li>
+</ol>
+</blockquote>
+<ul>
+<li>隐藏类</li>
+</ul>
+<blockquote>
+<p><strong>走出新手村</strong> - 等级到达200级</p>
+<p><strong>结束了…吗？</strong> - 使用 蓝宝石斧子 或 蓝宝石宝剑 或蓝宝石镐子 击杀黑龙</p>
+<p><strong>一见钟情</strong> - 升级一把武器从 1级 - 200级</p>
+<p><strong>无限轮回</strong> - 点击开始后退出，再次进入相同关卡，再次退出</p>
+<p><strong>我不信邪</strong> - 融合相同的两把武器三次以上</p>
+</blockquote>
+<h2 id="4-天赋系统"><a href="#4-天赋系统" class="headerlink" title="4.天赋系统"></a>4.天赋系统</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/18/Godot-%E9%AA%A8%E9%AA%BC%E5%8A%A8%E7%94%BB/" rel="prev" title="Godot-骨骼动画">
+                  <i class="fa fa-angle-left"></i> Godot-骨骼动画
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/20/Godot-SQLite%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="next" title="Godot - SQLite数据库">
+                  Godot - SQLite数据库 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小沐</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
