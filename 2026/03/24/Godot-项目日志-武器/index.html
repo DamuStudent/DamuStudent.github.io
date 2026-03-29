@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言 关于武器的项目日志 目标功能：   按钮是一个ui节点下的子节点，按下按钮后触发信号，玩家脚本想监听信号，收到信号后调用玩家的装备武器方法，该方法会调用 全局武器单例 的实例化武器方法实例化一个武器节点，并设置为玩家的手部子节点下 这个时候全局武器单例中存储着玩家武器的属性   玩家点击按钮可以按武器索引装备武器 需要：按钮按下产生信号，玩家监听按钮的信号，收到后调用玩家的装备武器方法 ，可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Godot - 项目日志 - 武器">
+<meta property="og:url" content="http://example.com/2026/03/24/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E6%AD%A6%E5%99%A8/index.html">
+<meta property="og:site_name" content="小沐的博客">
+<meta property="og:description" content="前言 关于武器的项目日志 目标功能：   按钮是一个ui节点下的子节点，按下按钮后触发信号，玩家脚本想监听信号，收到信号后调用玩家的装备武器方法，该方法会调用 全局武器单例 的实例化武器方法实例化一个武器节点，并设置为玩家的手部子节点下 这个时候全局武器单例中存储着玩家武器的属性   玩家点击按钮可以按武器索引装备武器 需要：按钮按下产生信号，玩家监听按钮的信号，收到后调用玩家的装备武器方法 ，可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-24T10:29:44.000Z">
+<meta property="article:modified_time" content="2026-03-28T03:41:18.990Z">
+<meta property="article:author" content="小沐">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2026/03/24/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E6%AD%A6%E5%99%A8/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/03/24/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E6%AD%A6%E5%99%A8/","path":"2026/03/24/Godot-项目日志-武器/","title":"Godot - 项目日志 - 武器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Godot - 项目日志 - 武器 | 小沐的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">小沐的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">代码能止肚饿</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小沐"
+      src="/images/avatar_1.jpg">
+  <p class="site-author-name" itemprop="name">小沐</p>
+  <div class="site-description" itemprop="description">我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/24/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E6%AD%A6%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.jpg">
+      <meta itemprop="name" content="小沐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沐的博客">
+      <meta itemprop="description" content="我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Godot - 项目日志 - 武器 | 小沐的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Godot - 项目日志 - 武器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-03-24 18:29:44" itemprop="dateCreated datePublished" datetime="2026-03-24T18:29:44+08:00">2026-03-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-03-28 11:41:18" itemprop="dateModified" datetime="2026-03-28T11:41:18+08:00">2026-03-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/" itemprop="url" rel="index"><span itemprop="name">Godot</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/Godot%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">Godot毕设项目</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>关于武器的项目日志</li>
+<li>目标功能：</li>
+</ul>
+<blockquote>
+<p>按钮是一个ui节点下的子节点，按下按钮后触发信号，玩家脚本想监听信号，收到信号后调用玩家的装备武器方法，该方法会调用 <strong>全局武器单例</strong> 的实例化武器方法实例化一个武器节点，并设置为玩家的手部子节点下</p>
+<p>这个时候全局武器单例中存储着玩家武器的属性</p>
+</blockquote>
+<blockquote>
+<p>玩家点击按钮可以按武器索引装备武器</p>
+<p>需要：按钮按下产生信号，玩家监听按钮的信号，收到后调用玩家的装备武器方法</p>
+<p>，可以通过武器对敌人造成伤害</p>
+</blockquote>
+<blockquote>
+<p>开发 <strong>项目数据库</strong></p>
+<p>开发 <strong>事件总线</strong>，所有事件传递到事件总线，事件总线再通知节点</p>
+<p>开发 <strong>全局管理器</strong>，敌人死亡信号发送至这里，触发掉落信号，传递关卡id</p>
+<p>开发 <strong>玩家</strong>，拥有基本属性，负责 装备 卸下 武器，属性更新，</p>
+<p>开发 <strong>全局掉落管理器</strong>，根据掉落信号的关卡id，掉落特定范围的id武器</p>
+<p>开发 <strong>全局数据库管理器</strong>，</p>
+<p>开发一个 <strong>掉落按钮</strong> 伪装掉落逻辑，按后触发掉落信号</p>
+<p>开发 <strong>武器表</strong>，拥有全游戏武器，掉落武器从该表中查询</p>
+<p>开发玩家 <strong>武器背包表</strong>，代表玩家获得武器，将武器表的查询结果插入玩家背包表</p>
+<p>开发一个 <strong>装备武器按钮</strong> 和输入框，按下后调用武器层的装备方法，触发新增武器属性信号，玩家装备输入框中的id的在玩家武器背包表中的武器，</p>
+<p>开发一个 <strong>武器场景</strong>，用于挂载到玩家节点，按下装备武器按钮时<strong>通过id访问武器属性层</strong>获取武器实例，调用武器层的装备方法</p>
+<p>开发一个 <strong>武器攻击特效场景</strong>，用于玩家攻击时判断hitbox</p>
+<p>开发一个 <strong>敌人</strong>，用于测试hurtbox</p>
+<p>开发 <strong>武器属性层</strong>，用于在装备武器时通过id查询武器属性</p>
+<p>开发一个 <strong>卸下武器按钮</strong>，按下后卸下武器，调用武器层的卸载方法，触发删除武器属性信号</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="2026-03-24"><a href="#2026-03-24" class="headerlink" title="2026&#x2F;03&#x2F;24"></a>2026&#x2F;03&#x2F;24</h1><ul>
+<li>疑问</li>
+</ul>
+<blockquote>
+<p>武器究竟通过什么实现？使用Node2D 还是 Resource？</p>
+<p>因为武器节点挂载于玩家节点下，所以玩家的攻击伤害到底是由武器触发还是玩家脚本触发？</p>
+</blockquote>
+<ul>
+<li>求助了半天ai，目前实现思路</li>
+</ul>
+<blockquote>
+<p>代码与节点需求：</p>
+<ul>
+<li>玩家层：提供玩家属性</li>
+<li>武器属性层：动态获取SQLite中对应武器id的武器属性</li>
+<li>武器节点层：将武器属性挂载到玩家节点下</li>
+<li>全局伤害计算层：获取玩家层的玩家属性 和 武器节点层的武器伤害计算公式</li>
+<li>全局掉落计算层：随机掉落武器</li>
+<li>敌人层：收到全局伤害计算后的伤害</li>
+</ul>
+<p>首先是武器属性层，这是一个Resource类，在这里会根据武器id从数据库中加载玩家当前手持武器的各种属性</p>
+<p>其次是武器节点层，在根节点引用 Resource 类，将图片挂载为Sprite2d子节点，根据属性动态设置area2d攻击区域的大小，根据属性动态设置Timer用于武器攻速计时</p>
+<p>武器造成的伤害应该由 全局单例**<code>DamageSystem</code>**控制，针对区域中的多个敌人生成敌人数组，对每一个敌人进行伤害计算</p>
+<p>玩家能够造成的伤害应该等于 武器特殊攻击方式算法(玩家基础属性) ，也就是武器节点应该给全局单例传递他的攻击算法，玩家节点应该给全局单例传递他的基本属性</p>
+</blockquote>
+<ul>
+<li>首先要设计 <strong>武器属性层</strong> 能从数据库中 <strong>玩家武器背包表</strong> 中获取的属性名</li>
+</ul>
+<blockquote>
+<p>武器id：作为玩家武器背包中每一把武器的唯一id（ **？**疑问1：如何让id唯一，时间戳？数据库主键？)</p>
+<p>武器品质：影响掉落几率</p>
+<p>武器名字：通过随机算法在关卡可掉落武器中随机生成</p>
+<p>武器攻速：通过随机算法在掉落时根据武器类型生成</p>
+<p>武器等级：在玩家刷武器时动态通过随机算法生成（ **？**疑问2：随机算法在哪里，全局单例？敌人示例？）</p>
+<p>武器面板伤害：在玩家刷武器时通过 武器等级，武器流派，动态随机生成，当玩家装备该武器时，玩家节点应将自身基础伤害加上武器面板伤害，在玩家取消装备该武器时，玩家基础伤害应该减去武器面板伤害</p>
+<p>武器类型：影响玩家手持方式，影响玩家攻击动画</p>
+<p>武器流派：在玩家刷武器时影响武器词缀和武器面板伤害生成（同疑问2）</p>
+<p>武器词缀（存储的JSON数组）：在玩家刷武器时动态生成（同疑问2）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[			# 武器词缀数据演示</span><br><span class="line">    &#123;</span><br><span class="line">    &quot;id&quot;:1,</span><br><span class="line">    &quot;type&quot;: &quot;cz_base_attack_power&quot;,    		# 词缀类型：基础攻击力</span><br><span class="line">    &quot;value&quot;: 15               				# 词缀数值：+15 基础攻击力</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">    &quot;id&quot;:2,</span><br><span class="line">    &quot;type&quot;: &quot;cz_attack_speed_percentage&quot;,   # 词缀类型：攻击速度百分比</span><br><span class="line">    &quot;value&quot;: 0.2              				# 词缀数值：+20% 攻击速度</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">    &quot;id&quot;:3,</span><br><span class="line">    &quot;type&quot;: &quot;cz_critical_chance&quot;,     		# 词缀类型：暴击率</span><br><span class="line">    &quot;value&quot;: 0.05             				# 词缀数值：+5% 暴击率</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">    &quot;id&quot;:4,</span><br><span class="line">    &quot;type&quot;: &quot;cz_armor_penetration_chance&quot;, 	# 词缀类型：破甲率</span><br><span class="line">    &quot;value&quot;: 0.1              				# 词缀数值：+10% 破甲率</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>武器图片：在玩家刷武器时通过随机算法确定的武器名字后，从数据库访问武器表获取，在玩家查看武器时给出图片，在玩家装备武器时将图片挂载到武器节点下</p>
+<p>武器特殊效果：该武器造成伤害的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 特殊效果：造成双倍伤害</span><br><span class="line">damage(玩家基础攻击力*玩家攻击力百分比):</span><br><span class="line">	var d = 玩家基础攻击力*玩家攻击力百分比 * 2</span><br></pre></td></tr></table></figure>
+
+<p>武器特殊效果描述：当玩家查看武器时给出的文字提示</p>
+<p>是否可以和其他武器融合 - 返回可融合的武器数组：功能过于复杂，暂不做考虑</p>
+</blockquote>
+<ul>
+<li>武器属性层中这些属性名所对应的可能的具体属性值</li>
+</ul>
+<p>详见 Godot - 项目日志 - 中英文本映射配置</p>
+<ul>
+<li>武器特殊效果在代码中使用</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">extends Node</span><br><span class="line"></span><br><span class="line"># 示例表达式（存储在 weapon_special_effect 中）</span><br><span class="line">var weapon_special_effect: String = &quot;base_attack * 2 + critical_damage * 10&quot;</span><br><span class="line"></span><br><span class="line"># 预定义变量（从玩家或武器属性中获取）</span><br><span class="line">var base_attack: float = 10.0</span><br><span class="line">var critical_damage: float = 1.5</span><br><span class="line"></span><br><span class="line">func _ready():</span><br><span class="line">    # 创建表达式对象</span><br><span class="line">    var expression = Expression.new()</span><br><span class="line">    </span><br><span class="line">    # 设置表达式字符串</span><br><span class="line">    var error = expression.parse(weapon_special_effect, [&quot;base_attack&quot;, &quot;critical_damage&quot;])  # 允许的变量白名单</span><br><span class="line">    if error != OK:</span><br><span class="line">        printerr(&quot;表达式解析错误: &quot;, expression.get_error_text())</span><br><span class="line">        return</span><br><span class="line">    </span><br><span class="line">    # 绑定变量值（顺序必须与 parse() 的变量列表一致）</span><br><span class="line">    var inputs = [base_attack, critical_damage]</span><br><span class="line">    </span><br><span class="line">    # 计算表达式</span><br><span class="line">    var result = expression.execute(inputs)  # 返回计算结果（float/int）</span><br><span class="line">    if not expression.has_execute_failed():</span><br><span class="line">        print(&quot;表达式计算结果: &quot;, result)  # 输出: 10*2 + 1.5*10 = 35</span><br><span class="line">    else:</span><br><span class="line">        printerr(&quot;表达式执行失败&quot;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在变量白名单中传入所有有可能参与伤害计算的变量</p>
+</blockquote>
+<ul>
+<li>武器随机掉落算法</li>
+</ul>
+<blockquote>
+<p>该算法位于全局单例 武器掉落，每死亡一个敌人都会调用该算法</p>
+</blockquote>
+<h1 id="2026-03-25"><a href="#2026-03-25" class="headerlink" title="2026&#x2F;03&#x2F;25"></a>2026&#x2F;03&#x2F;25</h1><ul>
+<li>注意</li>
+</ul>
+<blockquote>
+<p>武器能产生的属性值影响途径有：武器面板伤害，武器攻击速度，武器词缀</p>
+</blockquote>
+<ul>
+<li>武器属性层原型开发完毕</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line">extends Resource</span><br><span class="line">## 武器属性层</span><br><span class="line">class_name WeaponData</span><br><span class="line"></span><br><span class="line">## 基础属性（伪数据，开发阶段用）</span><br><span class="line">@export var weapon_id: int                  		# 武器唯一ID（自动生成）</span><br><span class="line">@export var weapon_name: String = &quot;Unnamed Weapon&quot; 	# 武器名称</span><br><span class="line">@export var weapon_type: String = &quot;sword&quot;         	# 武器类型（sword/axe/mace/dagger）</span><br><span class="line">@export var weapon_school: String = &quot;common_melee&quot; 	# 武器流派</span><br><span class="line"></span><br><span class="line">@export var weapon_damage: int = 10           		# 基础攻击力</span><br><span class="line">@export var weapon_attack_speed: float = 1.0       	# 攻击速度（每秒攻击次数）</span><br><span class="line"></span><br><span class="line">@export var weapon_rarity: String = &quot;common&quot;       	# 稀有度（common/rare/epic/legendary）</span><br><span class="line">@export var weapon_animation: String = &quot;sword&quot;		# 攻击动画名称</span><br><span class="line">@export var weapon_affix: Array = []				# 武器词缀</span><br><span class="line">@export var weapon_special_effect: String = &quot;&quot;		# 武器特殊效果（一个伤害表达式,这个表达式将传递给伤害处理单例，通过个表达式处理伤害）</span><br><span class="line">@export var weapon_special_effect_text: String = &quot;&quot;	# 武器特殊效果描述</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 特殊属性（从词缀中读取），在被武器节点引用后将被玩家节点捕获并加入玩家属性，当该武器被卸下后被玩家属性减去</span><br><span class="line"># 攻击类</span><br><span class="line">@export var cz_final_attack_power: float = 0  			# 最终增伤比</span><br><span class="line">@export var cz_base_attack_power: float = 0  			# 基础攻击力</span><br><span class="line">@export var cz_attack_percentage: float = 0  			# 攻击百分比</span><br><span class="line">@export var cz_attack_speed_percentage: float = 0  		# 攻速百分比</span><br><span class="line">@export var cz_critical_chance: float = 0  				# 暴击率</span><br><span class="line">@export var cz_critical_damage: float = 0  				# 暴击伤害</span><br><span class="line">@export var cz_follow_up_chance: float = 0 				# 追击率</span><br><span class="line">@export var cz_follow_up_damage: float = 0  			# 追击伤害</span><br><span class="line">@export var cz_armor_penetration_chance: float = 0  	# 破甲率</span><br><span class="line"># 生命类</span><br><span class="line">@export var cz_final_damage_reduction: float = 0  		# 最终免伤比</span><br><span class="line">@export var cz_base_health: float = 0  					# 基础生命值</span><br><span class="line">@export var cz_health_percentage: float = 0  			# 生命百分比</span><br><span class="line">@export var cz_life_steal_chance: float = 0  			# 吸血率</span><br><span class="line">@export var cz_life_steal_bonus: float = 0  			# 吸血增加</span><br><span class="line">@export var cz_health_regeneration: float = 0  			# 生命恢复</span><br><span class="line"></span><br><span class="line">## 像素风特效配置（伪数据）</span><br><span class="line">#@export var hit_effect: PackedScene         # 命中特效（如火花、血溅）</span><br><span class="line">#@export var swing_sound: String = &quot;swing_sword_sound&quot; # 攻击音效</span><br><span class="line"></span><br><span class="line">## 静态伪数据：武器数据库（开发阶段用）</span><br><span class="line">const WEAPON_TEMPLATES = [</span><br><span class="line">&#123;</span><br><span class="line">        &quot;weapon_id&quot;: 1,</span><br><span class="line">        &quot;weapon_name&quot;: &quot;铁剑&quot;,</span><br><span class="line">        &quot;weapon_type&quot;: &quot;sword&quot;,</span><br><span class="line">		&quot;weapon_school&quot;:&quot;common_melee&quot;,</span><br><span class="line">        &quot;weapon_damage&quot;: 15,</span><br><span class="line">        &quot;weapon_attack_speed&quot;: 1.2,</span><br><span class="line">        #&quot;weapon_critical_chance&quot;: 0.1,</span><br><span class="line">        #&quot;weapon_critical_damage&quot;: 2.0,</span><br><span class="line">        &quot;weapon_rarity&quot;: &quot;common&quot;,</span><br><span class="line">        &quot;weapon_animation&quot;: &quot;melee_1&quot;,</span><br><span class="line">		&quot;weapon_affix&quot;:[</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;id&quot;:1,</span><br><span class="line">				&quot;type&quot;: &quot;cz_base_attack_power&quot;,    		# 词缀类型：基础攻击力</span><br><span class="line">				&quot;value&quot;: 15               				# 词缀数值：+15 基础攻击力</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;id&quot;:2,</span><br><span class="line">				&quot;type&quot;: &quot;cz_attack_speed_percentage&quot;,   # 词缀类型：攻击速度百分比</span><br><span class="line">				&quot;value&quot;: 0.2              				# 词缀数值：+20% 攻击速度</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;id&quot;:3,</span><br><span class="line">				&quot;type&quot;: &quot;cz_critical_chance&quot;,     		# 词缀类型：暴击率</span><br><span class="line">				&quot;value&quot;: 0.05             				# 词缀数值：+5% 暴击率</span><br><span class="line">			&#125;,</span><br><span class="line">			&#123;</span><br><span class="line">				&quot;id&quot;:4,</span><br><span class="line">				&quot;type&quot;: &quot;cz_armor_penetration_chance&quot;, 	# 词缀类型：破甲率</span><br><span class="line">				&quot;value&quot;: 0.1              				# 词缀数值：+10% 破甲率</span><br><span class="line">			&#125;</span><br><span class="line">		],</span><br><span class="line">		&quot;weapon_special_effect&quot;:&quot;base_attack*1.2&quot;,</span><br><span class="line">		&quot;weapon_special_effect_text&quot;:&quot;造成玩家伤害的 120% 伤害&quot;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">## 方法：从模板ID加载武器数据</span><br><span class="line">func load_from_template_id(template_id: int) -&gt; bool:</span><br><span class="line">	# 查找匹配的武器模板</span><br><span class="line">	var template = null</span><br><span class="line">	for t in WEAPON_TEMPLATES:</span><br><span class="line">		if t.weapon_id == template_id:</span><br><span class="line">			template = t</span><br><span class="line">			break</span><br><span class="line">    </span><br><span class="line">	if not template:</span><br><span class="line">		printerr(&quot;未找到ID为 %d 的武器模板&quot; % template_id)</span><br><span class="line">		return false</span><br><span class="line">	else:</span><br><span class="line">		print(&quot;已找到&quot;)</span><br><span class="line">    </span><br><span class="line">    # 复制基础属性</span><br><span class="line">	weapon_id = template.weapon_id</span><br><span class="line">	weapon_name = template.weapon_name</span><br><span class="line">	weapon_type = template.weapon_type</span><br><span class="line">	weapon_school = template.weapon_school</span><br><span class="line">	weapon_damage = template.weapon_damage</span><br><span class="line">	weapon_attack_speed = template.weapon_attack_speed</span><br><span class="line">	weapon_rarity = template.weapon_rarity</span><br><span class="line">	weapon_animation = template.weapon_animation</span><br><span class="line">	weapon_special_effect = template.weapon_special_effect</span><br><span class="line">	weapon_special_effect_text = template.weapon_special_effect_text</span><br><span class="line">    </span><br><span class="line">    # 初始化词缀数组（避免引用问题）</span><br><span class="line">	weapon_affix = []</span><br><span class="line"></span><br><span class="line">	# 重置所有特殊属性为0</span><br><span class="line">	reset_special_properties()</span><br><span class="line"></span><br><span class="line">	# 处理词缀</span><br><span class="line">	if template.has(&quot;weapon_affix&quot;):  					# 确保模板有词缀字段</span><br><span class="line">		for affix_data in template.weapon_affix:</span><br><span class="line">			var new_affix = &#123;							# 创建词缀字典的副本（避免引用问题）</span><br><span class="line">				&quot;id&quot;: affix_data.id,</span><br><span class="line">				&quot;type&quot;: affix_data.type,</span><br><span class="line">				&quot;value&quot;: affix_data.value</span><br><span class="line">			&#125;</span><br><span class="line">			weapon_affix.append(new_affix)</span><br><span class="line">			apply_affix_to_properties(affix_data)		# 根据词缀类型设置对应的特殊属性</span><br><span class="line">    </span><br><span class="line">	return true</span><br><span class="line"></span><br><span class="line">## 方法：重置所有特殊属性为0</span><br><span class="line">func reset_special_properties():</span><br><span class="line">	cz_final_attack_power = 0</span><br><span class="line">	cz_base_attack_power = 0</span><br><span class="line">	cz_attack_percentage = 0</span><br><span class="line">	cz_attack_speed_percentage = 0</span><br><span class="line">	cz_critical_chance = 0</span><br><span class="line">	cz_critical_damage = 0</span><br><span class="line">	cz_follow_up_chance = 0</span><br><span class="line">	cz_follow_up_damage = 0</span><br><span class="line">	cz_armor_penetration_chance = 0</span><br><span class="line">	cz_final_damage_reduction = 0</span><br><span class="line">	cz_base_health = 0</span><br><span class="line">	cz_health_percentage = 0</span><br><span class="line">	cz_life_steal_chance = 0</span><br><span class="line">	cz_life_steal_bonus = 0</span><br><span class="line">	cz_health_regeneration = 0</span><br><span class="line"></span><br><span class="line">## 方法：将单个词缀应用到特殊属性上</span><br><span class="line">func apply_affix_to_properties(affix_data: Dictionary):</span><br><span class="line">	match affix_data.type:</span><br><span class="line">        # 攻击类词缀</span><br><span class="line">		&quot;cz_final_attack_power&quot;:</span><br><span class="line">			cz_final_attack_power = affix_data.value</span><br><span class="line">		&quot;cz_base_attack_power&quot;:</span><br><span class="line">			cz_base_attack_power = affix_data.value</span><br><span class="line">		&quot;cz_attack_percentage&quot;:</span><br><span class="line">			cz_attack_percentage = affix_data.value</span><br><span class="line">		&quot;cz_attack_speed_percentage&quot;:</span><br><span class="line">			cz_attack_speed_percentage = affix_data.value</span><br><span class="line">		&quot;cz_critical_chance&quot;:</span><br><span class="line">			cz_critical_chance = clamp(affix_data.value, 0.0, 1.0)  # 限制在 0-100%</span><br><span class="line">		&quot;cz_critical_damage&quot;:</span><br><span class="line">			cz_critical_damage = affix_data.value  # 基础暴击伤害为 100%，这里直接存储加成值</span><br><span class="line">		&quot;cz_follow_up_chance&quot;:</span><br><span class="line">			cz_follow_up_chance = clamp(affix_data.value, 0.0, 1.0)</span><br><span class="line">		&quot;cz_follow_up_damage&quot;:</span><br><span class="line">			cz_follow_up_damage = affix_data.value  # 基础追击伤害为 50%，这里存储加成值</span><br><span class="line">		&quot;cz_armor_penetration_chance&quot;:</span><br><span class="line">			cz_armor_penetration_chance = clamp(affix_data.value, 0.0, 1.0)</span><br><span class="line">        </span><br><span class="line">        # 生命类词缀</span><br><span class="line">		&quot;cz_final_damage_reduction&quot;:</span><br><span class="line">			cz_final_damage_reduction = clamp(affix_data.value, 0.0, 1.0)</span><br><span class="line">		&quot;cz_base_health&quot;:</span><br><span class="line">			cz_base_health = affix_data.value</span><br><span class="line">		&quot;cz_health_percentage&quot;:</span><br><span class="line">			cz_health_percentage = affix_data.value</span><br><span class="line">		&quot;cz_life_steal_chance&quot;:</span><br><span class="line">			cz_life_steal_chance = clamp(affix_data.value, 0.0, 1.0)</span><br><span class="line">		&quot;cz_life_steal_bonus&quot;:</span><br><span class="line">			cz_life_steal_bonus = affix_data.value  # 吸血率倍数加成（如 0.5 = 50% 额外吸血）</span><br><span class="line">		&quot;cz_health_regeneration&quot;:</span><br><span class="line">			cz_health_regeneration = affix_data.value</span><br><span class="line">        </span><br><span class="line">        # 未知词缀类型</span><br><span class="line">		_:</span><br><span class="line">			printerr(&quot;未知的词缀类型: %s&quot; % affix_data.type)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 方法：打印武器信息（调试用）</span><br><span class="line">func print_info():</span><br><span class="line"></span><br><span class="line">    # 格式化输出</span><br><span class="line">	print(&quot;&quot;&quot;</span><br><span class="line">	===== 武器信息 =====</span><br><span class="line">	ID: %d</span><br><span class="line">	名称: %s</span><br><span class="line">	类型: %s</span><br><span class="line">	流派: %s</span><br><span class="line">	基础攻击力: %d</span><br><span class="line">	攻击速度: %.2f</span><br><span class="line">	暴击率: %.2f%%</span><br><span class="line">	暴击伤害: x%.1f</span><br><span class="line">	稀有度: %s</span><br><span class="line">	动画: %s</span><br><span class="line">	特殊效果: %s</span><br><span class="line">	词缀: %s</span><br><span class="line">	================================</span><br><span class="line">	&quot;&quot;&quot; % [</span><br><span class="line">		weapon_id, weapon_name, weapon_type, weapon_school,</span><br><span class="line">		weapon_damage, weapon_attack_speed,</span><br><span class="line">		#weapon_critical_chance * 100, weapon_critical_damage,</span><br><span class="line">		weapon_rarity, weapon_animation,</span><br><span class="line">		weapon_special_effect_text,  # 直接使用描述文本</span><br><span class="line">		weapon_affix</span><br><span class="line">	])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>下一步是尝试在武器节点层引用数据</p>
+</blockquote>
+<ul>
+<li>武器节点层</li>
+</ul>
+<blockquote>
+<p>节点结构：</p>
+<ul>
+<li>Weapon（<strong>Node2D</strong>）		+ <strong>weapon.gd</strong><ul>
+<li>Weapon_Img（<strong>Sprite2D</strong>）</li>
+<li>Melee_1（<strong>Area2D</strong>）<ul>
+<li><strong>CollisionShape2D</strong></li>
+</ul>
+</li>
+<li>AttackTimer（<strong>Timer</strong>）</li>
+</ul>
+</li>
+</ul>
+<p>思路：</p>
+<p>攻击区域会是很多场景，命名方式参考如上结构，当武器节点层根据武器属性层的<strong>某属性</strong>判断后加入节点结构</p>
+</blockquote>
+<ul>
+<li>攻击层</li>
+</ul>
+<blockquote>
+<p>参考教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sbNfzKEV9?spm_id_from=333.788.player.switch&vd_source=b8977fe632fe1f80844096e7150e1003">在godot中近战挥砍攻击实现教程【字幕】剑击系统 | 挥砍机制 | 攻击动画 | 受击反馈 | 伤害判定 | 动画状态机 | 混合树 动作捕捉 | 关键帧编辑_哔哩哔哩_bilibili</a></p>
+<p>该教材制作了一个场景专门用于显示攻击特效，一个长条状的剑气，</p>
+</blockquote>
+<ul>
+<li>敌人层</li>
+</ul>
+<blockquote>
+<p>在开发中我们就使用木偶来作为测试</p>
+<p>需要注意碰撞层级</p>
+</blockquote>
+<ul>
+<li>武器的添加</li>
+</ul>
+<blockquote>
+<p>我有weapon.gd和weapon_data.gd,weapon中有weapon_data的实例，weapon_data有load_from_template_id方法更新数据，屏幕中有按钮，当点击按钮后，希望调用weapon_data的跟新数据方法，且如果更新数据成功，将weapon场景实例化添加到玩家的某个右手节点下，这一切用代码做出来</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/24/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-Player/" rel="prev" title="Godot - 项目日志 - Player">
+                  <i class="fa fa-angle-left"></i> Godot - 项目日志 - Player
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/03/25/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E4%B8%AD%E8%8B%B1%E6%96%87%E6%9C%AC%E6%98%A0%E5%B0%84%E9%85%8D%E7%BD%AE/" rel="next" title="Godot - 项目日志 - 中英文本映射配置">
+                  Godot - 项目日志 - 中英文本映射配置 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小沐</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
