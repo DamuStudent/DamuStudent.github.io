@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言 教程地址： Learn Git Branching">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git - 分支学习教程">
+<meta property="og:url" content="http://example.com/2026/03/30/Git-%E5%88%86%E6%94%AF%E5%AD%A6%E4%B9%A0%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="小沐的博客">
+<meta property="og:description" content="前言 教程地址： Learn Git Branching">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330115320402.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330115751067.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330130757590.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330131345453.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330131237684.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330132409670.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330132445944.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330133733019.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330133803931.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330141257824.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330142002362.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330142932875.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330152858589.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330153015840.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330163930532.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330184235392.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330184450427.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330184541277.png">
+<meta property="og:image" content="e:\blog\source\images\Git\image-20260330190043911.png">
+<meta property="article:published_time" content="2026-03-30T03:48:37.000Z">
+<meta property="article:modified_time" content="2026-03-30T11:07:46.787Z">
+<meta property="article:author" content="小沐">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:\blog\source\images\Git\image-20260330115320402.png">
+
+
+<link rel="canonical" href="http://example.com/2026/03/30/Git-%E5%88%86%E6%94%AF%E5%AD%A6%E4%B9%A0%E6%95%99%E7%A8%8B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/03/30/Git-%E5%88%86%E6%94%AF%E5%AD%A6%E4%B9%A0%E6%95%99%E7%A8%8B/","path":"2026/03/30/Git-分支学习教程/","title":"Git - 分支学习教程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git - 分支学习教程 | 小沐的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">小沐的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">代码能止肚饿</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小沐"
+      src="/images/avatar_1.jpg">
+  <p class="site-author-name" itemprop="name">小沐</p>
+  <div class="site-description" itemprop="description">我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/03/30/Git-%E5%88%86%E6%94%AF%E5%AD%A6%E4%B9%A0%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar_1.jpg">
+      <meta itemprop="name" content="小沐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沐的博客">
+      <meta itemprop="description" content="我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git - 分支学习教程 | 小沐的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git - 分支学习教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-30 11:48:37 / 修改时间：19:07:46" itemprop="dateCreated datePublished" datetime="2026-03-30T11:48:37+08:00">2026-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>教程地址：</p>
+<p><a target="_blank" rel="noopener" href="https://learngitbranching.js.org/?locale=zh_CN">Learn Git Branching</a></p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="基础片"><a href="#基础片" class="headerlink" title="基础片"></a>基础片</h1><h2 id="1-git-commit"><a href="#1-git-commit" class="headerlink" title="1.git commit"></a>1.git commit</h2><ul>
+<li>提交记录</li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330115320402.png" alt="image-20260330115320402"></p>
+<blockquote>
+<p>修改代码后，把这些修改保存成一个 <strong>提交记录C2</strong></p>
+</blockquote>
+<h2 id="2-git-branch"><a href="#2-git-branch" class="headerlink" title="2.git branch"></a>2.git branch</h2><ul>
+<li>新建分支</li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330115751067.png" alt="image-20260330115751067"></p>
+<blockquote>
+<p>看得出来 新建分支新建到了当前所在的记录</p>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330130757590.png" alt="image-20260330130757590"></p>
+<blockquote>
+<p>通过 <strong>git checkout <your-branch-name></strong> 命令选择到分支，然后把提交记录，这个记录就提交到新的分支里了！</p>
+<p>小技巧：通过 <strong>git checkout -b <your-branch-name></strong> 来创建一个新的分支并切换到新的分支</p>
+</blockquote>
+<h2 id="3-git-merge"><a href="#3-git-merge" class="headerlink" title="3.git merge"></a>3.git merge</h2><ul>
+<li>合并分支</li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330131345453.png" alt="image-20260330131345453"></p>
+<p><img src="E:\blog\source\images\Git\image-20260330131237684.png" alt="image-20260330131237684"></p>
+<blockquote>
+<p>通过 <strong>git merge <your-branch-name></strong> 合并</p>
+<p>焦点位于main，执行上述命令后，c4新记录将包含c2和c3，且层c4为main分支，这意味main包含代码库的所有最终修改</p>
+<p>在通过 <strong>git checkout bugFix</strong> 和 <strong>git merge main</strong> 可以让bugFix移动至main，让每一个分支都包含代码库的所有修改</p>
+</blockquote>
+<h2 id="4-git-rebase"><a href="#4-git-rebase" class="headerlink" title="4.git rebase"></a>4.git rebase</h2><ul>
+<li>第二种合并分支</li>
+</ul>
+<blockquote>
+<p>一种更线性的分支合并方式</p>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330132409670.png" alt="image-20260330132409670"></p>
+<p><img src="E:\blog\source\images\Git\image-20260330132445944.png" alt="image-20260330132445944"></p>
+<h1 id="高级片"><a href="#高级片" class="headerlink" title="高级片"></a>高级片</h1><h2 id="前言-：在提交树上移动"><a href="#前言-：在提交树上移动" class="headerlink" title="前言 ：在提交树上移动"></a>前言 ：在提交树上移动</h2><h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><blockquote>
+<p>HEAD 是当前所在提交记录的符合名称，它表示标识你正在工作的那个提交记录，HEAD总是指向当前分支上最近一次提交记录，通常情况下是指向分支名的</p>
+</blockquote>
+<h4 id="分离HEAD"><a href="#分离HEAD" class="headerlink" title="分离HEAD"></a>分离HEAD</h4><blockquote>
+<p>让HEAD指向某个具体的提交而不是分支</p>
+<p><strong>git checkout c1</strong></p>
+<p>注意：”c1” 是哈希值</p>
+</blockquote>
+<h3 id="相对引用"><a href="#相对引用" class="headerlink" title="相对引用"></a>相对引用</h3><blockquote>
+<p>在真正的 Git 世界里，哈希值并不是简单的 c1，而是<strong>四十位的长文本</strong>，你需要通过 <strong>git log</strong> 命令查看哈希值，Git 对哈希值的处理很聪明，你只需要提供能够唯一标识提交记录的前几个字符即可，而不是那 <em><strong>四十位的长文本</strong></em>！</p>
+<p>实际上，我们有更聪明的指定提交记录的方式：相对引用</p>
+<ul>
+<li>使用 ^ 向上移动 1 个提交记录</li>
+</ul>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330133733019.png" alt="image-20260330133733019"></p>
+<p><img src="E:\blog\source\images\Git\image-20260330133803931.png" alt="image-20260330133803931"></p>
+<blockquote>
+<ul>
+<li>使用 ~<num> 向上移动 num 个提交记录</li>
+</ul>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330141257824.png" alt="image-20260330141257824"></p>
+<ul>
+<li>修改分支位置</li>
+</ul>
+<blockquote>
+<p><strong>git branch -f main HEAD~3</strong> 这条命令会将main强制指向HEAD的第 3 级 parent 提交记录</p>
+</blockquote>
+<h2 id="撤销变更"><a href="#撤销变更" class="headerlink" title="撤销变更"></a>撤销变更</h2><h4 id="1-git-reset"><a href="#1-git-reset" class="headerlink" title="1. git reset"></a>1. git reset</h4><blockquote>
+<p>通过将分支引用向后移动至一个更早的提交来撤销变更，这会把 分支 向上移动，就像之前指向的提交从未发生过一样</p>
+<p>例：git reset HEAD^</p>
+<p>向上撤销变更一个提交</p>
+</blockquote>
+<h4 id="2-git-revert"><a href="#2-git-revert" class="headerlink" title="2. git revert"></a>2. git revert</h4><blockquote>
+<p>虽然 <strong>git reset</strong> 很方便，但是这对 远程分支 是无效的（线上合作）</p>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330142002362.png" alt="image-20260330142002362"></p>
+<blockquote>
+<p>例子：git revert HEAD</p>
+</blockquote>
+<h1 id="移动工作"><a href="#移动工作" class="headerlink" title="移动工作"></a>移动工作</h1><blockquote>
+<p>“我要这个工作到这里，那个工作到那里”</p>
+</blockquote>
+<ul>
+<li><strong>git cherry-pick &lt;提交1&gt; &lt;提交2&gt; &lt;…&gt;</strong></li>
+</ul>
+<blockquote>
+<p>将 提交1 提交2 … 复制到当前所在位置下（HEAD）</p>
+</blockquote>
+<ul>
+<li><strong>git rebase -i HEAD~4</strong></li>
+</ul>
+<blockquote>
+<p>将 当前位置 的上 4 条记录整理为对话框，点击按钮取消操作，复制没有取消操作的记录</p>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330142932875.png" alt="image-20260330142932875"></p>
+<blockquote>
+<p>通过在对话框中拖动记录来整理 提交顺序</p>
+</blockquote>
+<ul>
+<li><strong>git rebase -i</strong> 与 <strong>git cherry-pick</strong></li>
+</ul>
+<blockquote>
+<p>常用于单独将某一提交复制到某分支下</p>
+</blockquote>
+<h1 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h1><h2 id="提交的技巧-1"><a href="#提交的技巧-1" class="headerlink" title="提交的技巧 #1"></a>提交的技巧 #1</h2><blockquote>
+<p>当我想修改一个旧提交的一些代码</p>
+<p>先用 <strong>git rebase -i</strong> 重新排序，将我要修改的记录排到前面</p>
+<p>然后用 <strong>git commit –amend</strong> 进行小修改</p>
+<p>最后用 <strong>git rebase -i</strong> 把他们调整回原来顺序</p>
+<p>把 <strong>main</strong> 移动到最前面</p>
+</blockquote>
+<h2 id="提交的技巧-2"><a href="#提交的技巧-2" class="headerlink" title="提交的技巧 #2"></a>提交的技巧 #2</h2><blockquote>
+<p>第一种方法会排序两次，可能造成由 rebase 引发的冲突，使用 <strong>git cherry-pick</strong> 来修改</p>
+<p><strong>cherry-pick</strong> 可以把提交树上的任何地方的提交记录取过来追加到 <strong>HEAD</strong> 上！（除了HEAD上游的）</p>
+</blockquote>
+<h2 id="永久标签"><a href="#永久标签" class="headerlink" title="永久标签"></a>永久标签</h2><blockquote>
+<p>实际上，你会发现，分支一直在变，又或者一些临时的分支</p>
+<p>所以分支更像开发模式中的标识符</p>
+<p>我们需要一个比分支更好的标签能永远指向某一个提交的里程碑的东西：</p>
+</blockquote>
+<ul>
+<li><strong>git tags</strong></li>
+</ul>
+<blockquote>
+<p>git tag <tag-name> &lt;哈希值&gt;</p>
+<p>让该哈希值指向的提交永久获得 tag-name 的标签，如果 <strong>不指定提交记录</strong>，tag-name 会指向 HEAD</p>
+</blockquote>
+<h2 id="查找最近标签"><a href="#查找最近标签" class="headerlink" title="查找最近标签"></a>查找最近标签</h2><ul>
+<li>git describe</li>
+</ul>
+<blockquote>
+<p>git describe <ref></p>
+<p><ref> 可以是任何能被 git 识别成提交记录 的引用，若没指定，git 会使用 HEAD</p>
+<p>返回值：<tag>-<numCommits>-g<hash></p>
+<p>tag 表示离 ref 最近的标签，numCommits 是 ref 与 tag 相差多少个提交记录，hash 表示 ref 表示的提交记录哈希值的前几位</p>
+<p>当 ref 本身上就有 标签 时，咋只输出 标签名</p>
+</blockquote>
+<h1 id="高级话题"><a href="#高级话题" class="headerlink" title="高级话题"></a>高级话题</h1><h2 id="多分支-rebase"><a href="#多分支-rebase" class="headerlink" title="多分支 rebase"></a>多分支 rebase</h2><blockquote>
+<p>实际上，git rebase的真正用法是：</p>
+<p>git rebase <to-branch> <your-branch></p>
+<p>将 your-branch 和它上面的所有没有分支的提交记录 复制到 to-branch</p>
+</blockquote>
+<h2 id="两个-parent-节点"><a href="#两个-parent-节点" class="headerlink" title="两个 parent 节点"></a>两个 parent 节点</h2><blockquote>
+<p>在之前的 git merge 中，你会注意到，合并的分支有两个父提交，这时候你如果用 ^ 操作符，你会发现只会回到第一个父提交上，这是 git 默认的</p>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330152858589.png" alt="image-20260330152858589"></p>
+<ul>
+<li><strong>操作符的链式操作</strong></li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330153015840.png" alt="image-20260330153015840"></p>
+<blockquote>
+<p>当然你也可以在任何HEAD上游创建分支</p>
+<p>例：<strong>git branch newBranch HEAD<del>^2</del></strong></p>
+</blockquote>
+<h2 id="纠缠不清的分支（总结）"><a href="#纠缠不清的分支（总结）" class="headerlink" title="纠缠不清的分支（总结）"></a>纠缠不清的分支（总结）</h2><h3 id="简单总结出现过的-Git-命令"><a href="#简单总结出现过的-Git-命令" class="headerlink" title="简单总结出现过的 Git 命令"></a>简单总结出现过的 Git 命令</h3><h4 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h4><ol>
+<li><code>git commit</code><ul>
+<li>将修改保存为提交记录。</li>
+</ul>
+</li>
+<li><code>git branch &lt;branch-name&gt;</code><ul>
+<li>新建分支（基于当前提交记录）。</li>
+</ul>
+</li>
+<li><code>git checkout &lt;branch-name&gt;</code><ul>
+<li>切换到指定分支。</li>
+<li><strong><code>git checkout -b &lt;branch-name&gt;</code></strong>：新建并切换到新分支。</li>
+</ul>
+</li>
+<li><code>git merge &lt;branch-name&gt;</code><ul>
+<li>合并指定分支到当前分支（非线性历史）。</li>
+</ul>
+</li>
+<li><code>git rebase &lt;branch-name&gt;</code><ul>
+<li>将当前分支的提交“变基”到目标分支（线性历史）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="高级操作"><a href="#高级操作" class="headerlink" title="高级操作"></a>高级操作</h4><ol>
+<li>HEAD 操作<ul>
+<li><strong><code>git checkout &lt;commit-hash&gt;</code></strong>：分离 HEAD，指向具体提交（而非分支）。</li>
+<li>相对引用：<ul>
+<li><code>^</code>：向上移动 1 个提交（如 <code>HEAD^</code>）。</li>
+<li><code>~&lt;num&gt;</code>：向上移动 <code>num</code> 个提交（如 <code>HEAD~3</code>）。</li>
+</ul>
+</li>
+<li>强制移动分支：<ul>
+<li><code>git branch -f &lt;branch-name&gt; HEAD~&lt;num&gt;</code>：将分支强制指向某提交。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>撤销变更<ul>
+<li><strong><code>git reset HEAD^</code></strong>：本地撤销提交（移动分支引用，丢弃后续提交）。</li>
+<li><strong><code>git revert HEAD</code></strong>：生成反向提交（安全撤销，适用于远程分支）。</li>
+</ul>
+</li>
+<li>移动提交<ul>
+<li><strong><code>git cherry-pick &lt;commit1&gt; &lt;commit2&gt;</code></strong>：复制指定提交到当前分支。</li>
+<li>交互式变基：<ul>
+<li><code>git rebase -i HEAD~&lt;num&gt;</code>：整理提交（排序、合并、修改等）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="提交与标签"><a href="#提交与标签" class="headerlink" title="提交与标签"></a>提交与标签</h4><ol>
+<li>修改旧提交<ul>
+<li>通过 <code>git rebase -i</code> 重新排序提交，用 <code>git commit --amend</code> 修改内容，再调整回原顺序。</li>
+<li>或直接用 <code>git cherry-pick</code> 复制修改后的提交。</li>
+</ul>
+</li>
+<li>标签（Tag）<ul>
+<li><strong><code>git tag &lt;tag-name&gt; &lt;commit-hash&gt;</code></strong>：为提交打永久标签（未指定哈希时默认指向 HEAD）。</li>
+<li><strong><code>git describe &lt;ref&gt;</code></strong>：显示最近标签信息（格式：<code>&lt;tag&gt;-&lt;numCommits&gt;-g&lt;hash&gt;</code>）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="多分支与复杂操作"><a href="#多分支与复杂操作" class="headerlink" title="多分支与复杂操作"></a>多分支与复杂操作</h4><ol>
+<li>多分支变基<ul>
+<li><code>git rebase &lt;to-branch&gt; &lt;your-branch&gt;</code>：将 <code>your-branch</code> 及其提交复制到 <code>to-branch</code>。</li>
+</ul>
+</li>
+<li>多父提交处理<ul>
+<li>合并后的提交有两个父节点，默认 <code>^</code> 指向第一个父节点。</li>
+<li><strong>链式操作</strong>：如 <code>HEAD^2~</code> 表示第一个父节点的第二个父节点的上一个提交。</li>
+<li><strong>从任意位置创建分支</strong>：如 <code>git branch newBranch HEAD~^2~</code>。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="总结表"><a href="#总结表" class="headerlink" title="总结表"></a>总结表</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>git commit</code></td>
+<td>保存修改为提交</td>
+</tr>
+<tr>
+<td><code>git branch</code></td>
+<td>新建分支</td>
+</tr>
+<tr>
+<td><code>git checkout</code></td>
+<td>切换分支&#x2F;提交</td>
+</tr>
+<tr>
+<td><code>git merge</code></td>
+<td>合并分支（非线性）</td>
+</tr>
+<tr>
+<td><code>git rebase</code></td>
+<td>变基合并（线性历史）</td>
+</tr>
+<tr>
+<td><code>git reset</code></td>
+<td>本地撤销提交</td>
+</tr>
+<tr>
+<td><code>git revert</code></td>
+<td>生成反向提交（安全撤销）</td>
+</tr>
+<tr>
+<td><code>git cherry-pick</code></td>
+<td>复制指定提交</td>
+</tr>
+<tr>
+<td><code>git rebase -i</code></td>
+<td>交互式整理提交</td>
+</tr>
+<tr>
+<td><code>git tag</code></td>
+<td>打永久标签</td>
+</tr>
+<tr>
+<td><code>git describe</code></td>
+<td>显示最近标签信息</td>
+</tr>
+</tbody></table>
+<h1 id="远程仓库的-Push-Pull"><a href="#远程仓库的-Push-Pull" class="headerlink" title="远程仓库的 Push &amp; Pull"></a>远程仓库的 Push &amp; Pull</h1><ul>
+<li>何为远程仓库？</li>
+</ul>
+<blockquote>
+<p>远程仓库并不复杂, 在如今的云计算盛行的世界很容易把远程仓库想象成一个富有魔力的东西, 但实际上它们只是你的仓库在另个一台计算机上的拷贝。你可以通过因特网与这台计算机通信 —— 也就是增加或是获取提交记录</p>
+</blockquote>
+<h2 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h2><ul>
+<li><strong>git clone</strong></li>
+</ul>
+<blockquote>
+<p>在真实环境下作用：在 本地 创建一个 远程仓库 的拷贝</p>
+<p>在教程环境下作用：在 远程 创建一个 本地仓库 的副本</p>
+</blockquote>
+<p><img src="E:\blog\source\images\Git\image-20260330163930532.png" alt="image-20260330163930532"></p>
+<h2 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h2><blockquote>
+<p>你会发现 本地仓库 中多了一个 o&#x2F;main 的分支，这便是 <strong>远程分支</strong> ，他会反应远程仓库的<strong>状态</strong></p>
+<p>远程分支命名规范：<remote name>&#x2F;<branch name></p>
+<p>所以 o&#x2F;main 是一个仓库名为 o 中的 main 分支</p>
+</blockquote>
+<h2 id="从远程仓库获取数据"><a href="#从远程仓库获取数据" class="headerlink" title="从远程仓库获取数据"></a>从远程仓库获取数据</h2><ul>
+<li>git fetch</li>
+</ul>
+<blockquote>
+<p>他会从远程仓库下载本地仓库缺失的 <strong>提交记录</strong></p>
+<p>更新远程分支指针（如o&#x2F;main），将所有远程分支更新为远程仓库中相应分支最新的状态</p>
+<p>注意！这是一个单纯的下载操作，并不会改变你本地仓库的数据和状态</p>
+</blockquote>
+<h2 id="将获取的远程数据更新到我们的工作中"><a href="#将获取的远程数据更新到我们的工作中" class="headerlink" title="将获取的远程数据更新到我们的工作中"></a>将获取的远程数据更新到我们的工作中</h2><ul>
+<li>git pull</li>
+</ul>
+<blockquote>
+<p>其实就是 <strong>git fetch</strong> 和 <strong>git merge</strong> 的缩写，先下载，后合并</p>
+</blockquote>
+<h2 id="模拟团队合作"><a href="#模拟团队合作" class="headerlink" title="模拟团队合作"></a>模拟团队合作</h2><blockquote>
+<p>由于教程并不能真正的在世界上某个地方改变远程仓库，所以教程自建了一个命令用来模拟在远程仓库上的一个提交</p>
+</blockquote>
+<h2 id="上传我的本地内容"><a href="#上传我的本地内容" class="headerlink" title="上传我的本地内容"></a>上传我的本地内容</h2><ul>
+<li>git push</li>
+</ul>
+<blockquote>
+<p>不带参数时，默认值与你github版本有关</p>
+</blockquote>
+<h2 id="历史偏移"><a href="#历史偏移" class="headerlink" title="历史偏移"></a>历史偏移</h2><blockquote>
+<p>实际上，当你周一克隆了远程仓库，然后开始研发新功能，但是到周五你发现你的同事写了一堆代码，还改了你功能中使用的api，这些会变动会导致你新开发的功能不可用，但是他们已经将那些提交推送到远程仓库了，因此你的工作就变成了基于项目<strong>旧版</strong>的代码，与远程仓库最新的代码不匹配了</p>
+<p>因为这情况（历史偏离）有许多的不确定性，Git 是不会允许你 <code>push</code> 变更的。实际上它会强制你先合并远程最新的代码，然后才能分享你的工作。</p>
+</blockquote>
+<ul>
+<li>办法 1：下载最新分支，移动你的更改至最新分支下，提交</li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330184235392.png" alt="image-20260330184235392"></p>
+<ul>
+<li>办法 2：下载最新分支，合并你的更改，提交</li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330184450427.png" alt="image-20260330184450427"></p>
+<ul>
+<li>办法 3：–rebase参数</li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330184541277.png" alt="image-20260330184541277"></p>
+<ul>
+<li>办法 4：直接使用 git pull</li>
+</ul>
+<p>见图 办法2</p>
+<h2 id="远程服务器拒绝！（Remote-Rejected）"><a href="#远程服务器拒绝！（Remote-Rejected）" class="headerlink" title="远程服务器拒绝！（Remote Rejected）"></a>远程服务器拒绝！（Remote Rejected）</h2><blockquote>
+<p>如果你在大的合作团队中工作，很可能是main被锁定了, 需要一些 Pull Request 流程来合并修改。如果你直接提交(commit)到本地main, 然后试图推送(push)修改, 你将会收到这样类似的信息:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">! [远程服务器拒绝] main -&gt; main (TF402455: 不允许推送(push)这个分支; 你必须使用pull request来更新这个分支.)</span><br></pre></td></tr></table></figure>
+
+<p>？为什么会被拒绝</p>
+<p>远程服务器拒绝直接推送(push)提交到main, 因为策略配置要求 pull requests 来提交更新.</p>
+<p>你应该按照流程,新建一个分支, 推送(push)这个分支并申请pull request,但是你忘记并直接提交给了main.现在你卡住并且无法推送你的更新.</p>
+</blockquote>
+<ul>
+<li>git push origin feature</li>
+</ul>
+<p><img src="E:\blog\source\images\Git\image-20260330190043911.png" alt="image-20260330190043911"></p>
+<h1 id="关于-origin-和它的周边（远程仓库高级操作）"><a href="#关于-origin-和它的周边（远程仓库高级操作）" class="headerlink" title="关于 origin 和它的周边（远程仓库高级操作）"></a>关于 origin 和它的周边（远程仓库高级操作）</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/03/29/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-Enemy/" rel="prev" title="Godot - 项目日志 - Enemy">
+                  <i class="fa fa-angle-left"></i> Godot - 项目日志 - Enemy
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小沐</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
