@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
     <meta name="description" content="前言 关于武器的项目日志 目标功能：   按钮是一个ui节点下的子节点，按下按钮后触发信号，玩家脚本想监听信号，收到信号后调用玩家的装备武器方法，该方法会调用 全局武器单例 的实例化武器方法实例化一个武器节点，并设置为玩家的手部子节点下 这个时候全局武器单例中存储着玩家武器的属性   玩家点击按钮可以按武器索引装备武器 需要：按钮按下产生信号，玩家监听按钮的信号，收到后调用玩家的装备武器方法 ，可">
 <meta property="og:type" content="article">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言 关于武器的项目日志 目标功能：   按钮是一个ui节点下的子节点，按下按钮后触发信号，玩家脚本想监听信号，收到信号后调用玩家的装备武器方法，该方法会调用 全局武器单例 的实例化武器方法实例化一个武器节点，并设置为玩家的手部子节点下 这个时候全局武器单例中存储着玩家武器的属性   玩家点击按钮可以按武器索引装备武器 需要：按钮按下产生信号，玩家监听按钮的信号，收到后调用玩家的装备武器方法 ，可">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-24T10:29:44.000Z">
-<meta property="article:modified_time" content="2026-03-30T14:10:05.673Z">
+<meta property="article:modified_time" content="2026-04-02T03:15:21.879Z">
 <meta property="article:author" content="小沐">
 <meta property="article:tag" content="博客">
 <meta property="article:tag" content="笔记">
@@ -145,7 +145,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -219,7 +219,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-03-30 22:10:05" itemprop="dateModified" datetime="2026-03-30T22:10:05+08:00">2026-03-30</time>
+      <time title="修改时间：2026-04-02 11:15:21" itemprop="dateModified" datetime="2026-04-02T11:15:21+08:00">2026-04-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -382,6 +382,9 @@
 <ul>
 <li>攻击动画</li>
 </ul>
+<blockquote>
+<p>检测 可攻击距离是否大于最近敌人到玩家的距离，检测武器节点 是否可以攻击，如果可以，调用武器节点攻击方法，武器节点攻击方法获取玩家局内属性，拥有武器伤害表达式，有一个剑气场景，向敌人方向创建该场景，武器节点传递玩家局内属性，武器伤害表达式给剑气场景，该场景拥有area节点，将会和敌人的hurtbox进行碰撞，同时，该场景的area节点会存在大概0.35秒，这0.35秒内碰撞的敌人要组成敌人列表传入全局伤害处理场景，同时传递伤害处理表达式和玩家伤害</p>
+</blockquote>
 
     </div>
 
