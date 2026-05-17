@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","categories":true,"tags":true,"width_expanded":320,"width_dual_column":240,"display":"always","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":true,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="前言 关于全局单例的项目日志">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Godot - 项目日志 - 全局单例">
+<meta property="og:url" content="http://example.com/2026/04/14/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E5%85%A8%E5%B1%80%E5%8D%95%E4%BE%8B/index.html">
+<meta property="og:site_name" content="小沐的博客">
+<meta property="og:description" content="前言 关于全局单例的项目日志">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-04-14T03:34:13.000Z">
+<meta property="article:modified_time" content="2026-04-26T03:14:57.687Z">
+<meta property="article:author" content="小沐">
+<meta property="article:tag" content="博客">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2026/04/14/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E5%85%A8%E5%B1%80%E5%8D%95%E4%BE%8B/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2026/04/14/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E5%85%A8%E5%B1%80%E5%8D%95%E4%BE%8B/","path":"2026/04/14/Godot-项目日志-全局单例/","title":"Godot - 项目日志 - 全局单例"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Godot - 项目日志 - 全局单例 | 小沐的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">小沐的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">代码能止肚饿</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小沐"
+      src="/images/image_4.png">
+  <p class="site-author-name" itemprop="name">小沐</p>
+  <div class="site-description" itemprop="description">我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/14/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-%E5%85%A8%E5%B1%80%E5%8D%95%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/image_4.png">
+      <meta itemprop="name" content="小沐">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小沐的博客">
+      <meta itemprop="description" content="我奋斗的决心比磐石更磐石 , 我学习的热情比饕鬄更饕鬄">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Godot - 项目日志 - 全局单例 | 小沐的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Godot - 项目日志 - 全局单例
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-04-14 11:34:13" itemprop="dateCreated datePublished" datetime="2026-04-14T11:34:13+08:00">2026-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-04-26 11:14:57" itemprop="dateModified" datetime="2026-04-26T11:14:57+08:00">2026-04-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/" itemprop="url" rel="index"><span itemprop="name">Godot</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Godot/Godot%E6%AF%95%E8%AE%BE%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">Godot毕设项目</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>关于全局单例的项目日志</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="WeaponManager-武器管理器"><a href="#WeaponManager-武器管理器" class="headerlink" title="WeaponManager 武器管理器"></a>WeaponManager 武器管理器</h1><ul>
+<li>设计初衷是管理 <strong>玩家手持武器</strong> ， <strong>玩家更换武器</strong> ， <strong>武器词缀更新</strong> ， <strong>武器等级更新</strong> </li>
+<li>特殊属性和词缀属性都存储在一个字典里</li>
+<li><strong>方法1</strong> 到 <strong>方法4</strong> 为玩家切换武器时会调用的</li>
+<li><strong>方法5</strong> 到 <strong>方法9</strong> 都是掉落武器时会调用的</li>
+</ul>
+<h3 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h3><ul>
+<li>暂无</li>
+</ul>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><blockquote>
+<p>武器id：作为玩家武器背包中每一把武器的唯一id</p>
+<p>武器等级：在玩家刷武器时根据玩家等级生成</p>
+<p>武器名字：通过随机算法在关卡可掉落武器中随机生成</p>
+<p>武器品质：影响掉落几率</p>
+<p>武器类型：影响玩家手持方式，影响玩家攻击动画</p>
+<p>武器流派：在玩家刷武器时影响武器词缀和武器面板伤害生成</p>
+<p>武器攻速：获取的数据库数据，单位为 次&#x2F;每秒</p>
+<p>武器伤害：动态生成</p>
+<p>武器图片：在玩家刷武器时通过随机算法确定的武器名字后，从数据库访问武器表获取，在玩家查看武器时给出图片，在玩家装备武器时将图片挂载到武器节点下</p>
+<p>武器特殊效果：该武器佩戴时的固定特殊属性加成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 特殊效果：造成双倍伤害</span><br><span class="line">damage(玩家基础攻击力*玩家攻击力百分比):</span><br><span class="line">	var d = 玩家基础攻击力*玩家攻击力百分比 * 2</span><br></pre></td></tr></table></figure>
+
+<p>武器特殊效果描述：当玩家查看武器时给出的文字提示</p>
+<p>武器伤害表达式：策略模式的相对路径</p>
+<p>武器伤害表达式描述：当玩家查看武器时给出的文字提示</p>
+<p>武器词缀相关变量：在玩家刷武器时动态生成，掉落管理器会调用武器管理器中的词缀生成功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 可刷新出词缀：</span><br><span class="line"># base_attack_power			基础攻击力</span><br><span class="line"># attack_percentage			攻击百分比</span><br><span class="line"># attack_speed_percentage	攻速百分比</span><br><span class="line"># critical_chance			暴击率</span><br><span class="line"># critical_damage			暴击伤害</span><br><span class="line"># follow_up_chance			追击率</span><br><span class="line"># follow_up_damage			追击伤害</span><br><span class="line"># base_health				基础生命值</span><br><span class="line"># health_percentage			生命百分比</span><br><span class="line"># base_defense				基础防御值</span><br><span class="line"># defense_percentage		防御百分比</span><br><span class="line"># life_steal_chance			生命窃取率</span><br><span class="line"># life_steal_bonus			生命窃取百分比</span><br><span class="line"># health_regeneration		生命恢复</span><br></pre></td></tr></table></figure>
+
+<p>武器特殊属性：在玩家节点添加武器时在玩家属性中减去旧的特殊属性，并加入玩家属性，当该武器被卸下后被玩家属性减去</p>
+<p>词缀品质枚举</p>
+<p>词缀类型枚举</p>
+<p>词缀数据字典</p>
+<p>是否可以和其他武器融合 - 返回可融合的武器数组：功能过于复杂，暂不做考虑</p>
+</blockquote>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="方法1：spawn-weapon-instance-new-weapon-id-int-parent-Node2D-position-Vector2-Node2D"><a href="#方法1：spawn-weapon-instance-new-weapon-id-int-parent-Node2D-position-Vector2-Node2D" class="headerlink" title="方法1：spawn_weapon_instance(new_weapon_id: int, parent: Node2D, position: Vector2) -&gt; Node2D"></a>方法1：spawn_weapon_instance(new_weapon_id: int, parent: Node2D, position: Vector2) -&gt; Node2D</h3><blockquote>
+<h3 id="功能：实例化一个武器节点并调用-方法2"><a href="#功能：实例化一个武器节点并调用-方法2" class="headerlink" title="功能：实例化一个武器节点并调用 方法2"></a><strong>功能</strong>：实例化一个武器节点并调用 方法2</h3><p>参数：<br>new_weapon_id：武器的模板ID（整数）<br>parent：父节点（Node2D 类型）<br>position：武器实例的初始位置（Vector2 类型）<br>返回：<br>返回实例化的武器节点（Node2D 类型） </p>
+</blockquote>
+<h3 id="方法2：load-from-template-id-template-id-int-bool"><a href="#方法2：load-from-template-id-template-id-int-bool" class="headerlink" title="方法2：load_from_template_id(template_id: int) -&gt; bool"></a>方法2：load_from_template_id(template_id: int) -&gt; bool</h3><blockquote>
+<h3 id="功能：通过-武器id-从数据库中加载-武器数据-并初始化当前武器实例节点的各个属性（图片、伤害策略，词缀）"><a href="#功能：通过-武器id-从数据库中加载-武器数据-并初始化当前武器实例节点的各个属性（图片、伤害策略，词缀）" class="headerlink" title="功能：通过 武器id 从数据库中加载 武器数据 并初始化当前武器实例节点的各个属性（图片、伤害策略，词缀）"></a><strong>功能</strong>：通过 武器id 从数据库中加载 武器数据 并初始化当前武器实例节点的各个属性（图片、伤害策略，词缀）</h3><p>参数：<br>template_id：武器的模板ID（整数）<br>返回：<br>返回 true 如果成功加载模板，否则返回 false（布尔值） </p>
+</blockquote>
+<h3 id="方法3：reset-special-properties"><a href="#方法3：reset-special-properties" class="headerlink" title="方法3：reset_special_properties()"></a>方法3：reset_special_properties()</h3><blockquote>
+<h3 id="功能：重置所有特殊属性和词缀属性为-0"><a href="#功能：重置所有特殊属性和词缀属性为-0" class="headerlink" title="功能：重置所有特殊属性和词缀属性为 0"></a><strong>功能</strong>：重置所有特殊属性和词缀属性为 0</h3><p>参数：无<br>返回：无（void） </p>
+</blockquote>
+<h3 id="方法4：apply-affix-to-properties-affix-data-Dictionary"><a href="#方法4：apply-affix-to-properties-affix-data-Dictionary" class="headerlink" title="方法4：apply_affix_to_properties(affix_data: Dictionary)"></a>方法4：apply_affix_to_properties(affix_data: Dictionary)</h3><blockquote>
+<h3 id="功能：将单个词缀加入至特殊属性字典上"><a href="#功能：将单个词缀加入至特殊属性字典上" class="headerlink" title="功能：将单个词缀加入至特殊属性字典上"></a><strong>功能</strong>：将单个词缀加入至特殊属性字典上</h3><p>参数：<br>affix_data：词缀数据字典，格式为 { “type”: “词缀类型”, “value”: 词缀值 }<br>返回：无（void） </p>
+</blockquote>
+<h3 id="方法5：get-quality-probabilities-weapon-level-int-Dictionary"><a href="#方法5：get-quality-probabilities-weapon-level-int-Dictionary" class="headerlink" title="方法5：get_quality_probabilities(weapon_level: int) -&gt; Dictionary"></a>方法5：get_quality_probabilities(weapon_level: int) -&gt; Dictionary</h3><blockquote>
+<h3 id="功能：根据武器等级返回词缀品质的概率分布"><a href="#功能：根据武器等级返回词缀品质的概率分布" class="headerlink" title="功能：根据武器等级返回词缀品质的概率分布"></a><strong>功能</strong>：根据武器等级返回词缀品质的概率分布</h3><p>参数：<br>weapon_level：武器等级（整数）<br>返回：<br>返回一个字典，键为词缀品质枚举（AffixQuality），值为概率（浮点数） </p>
+</blockquote>
+<h3 id="方法6：get-random-quality-probabilities-Dictionary-int"><a href="#方法6：get-random-quality-probabilities-Dictionary-int" class="headerlink" title="方法6：get_random_quality(probabilities: Dictionary) -&gt; int"></a>方法6：get_random_quality(probabilities: Dictionary) -&gt; int</h3><blockquote>
+<h3 id="功能：根据概率分布随机选择一个词缀品质"><a href="#功能：根据概率分布随机选择一个词缀品质" class="headerlink" title="功能：根据概率分布随机选择一个词缀品质"></a><strong>功能</strong>：根据概率分布随机选择一个词缀品质</h3><p>参数：<br>probabilities：词缀品质概率字典，格式为 { AffixQuality.XXX: 概率 }<br>返回：<br>返回选中的词缀品质枚举（AffixQuality 类型，整数） </p>
+</blockquote>
+<h3 id="方法7：get-random-affix-type-int"><a href="#方法7：get-random-affix-type-int" class="headerlink" title="方法7：get_random_affix_type() -&gt; int"></a>方法7：get_random_affix_type() -&gt; int</h3><blockquote>
+<h3 id="功能：随机选择词缀类型（百分比或数值）"><a href="#功能：随机选择词缀类型（百分比或数值）" class="headerlink" title="功能：随机选择词缀类型（百分比或数值）"></a><strong>功能</strong>：随机选择词缀类型（百分比或数值）</h3><p>参数：无<br>返回：<br>返回词缀类型枚举（AffixType.PERCENTAGE 或 AffixType.VALUE，整数） </p>
+</blockquote>
+<h3 id="方法8：generate-single-affix-quality-int-affix-type-int-Array"><a href="#方法8：generate-single-affix-quality-int-affix-type-int-Array" class="headerlink" title="方法8：generate_single_affix(quality: int, affix_type: int) -&gt; Array"></a>方法8：generate_single_affix(quality: int, affix_type: int) -&gt; Array</h3><blockquote>
+<h3 id="功能：根据品质和类型生成单个词缀"><a href="#功能：根据品质和类型生成单个词缀" class="headerlink" title="功能：根据品质和类型生成单个词缀"></a><strong>功能</strong>：根据品质和类型生成单个词缀</h3><p>参数：<br>quality：词缀品质枚举（AffixQuality 类型，整数）<br>affix_type：词缀类型枚举（AffixType 类型，整数）<br>返回：<br>返回一个数组，格式为 [词缀类型字符串, 随机值]（例如 [“attack_percentage”, 0.05]） </p>
+</blockquote>
+<h3 id="方法9：generate-affixes-weapon-level-int-Dictionary"><a href="#方法9：generate-affixes-weapon-level-int-Dictionary" class="headerlink" title="方法9：generate_affixes(weapon_level: int) -&gt; Dictionary"></a>方法9：generate_affixes(weapon_level: int) -&gt; Dictionary</h3><blockquote>
+<h3 id="功能：根据武器等级生成一组词缀"><a href="#功能：根据武器等级生成一组词缀" class="headerlink" title="功能：根据武器等级生成一组词缀"></a><strong>功能</strong>：根据武器等级生成一组词缀</h3><p>参数：<br>weapon_level：武器等级（整数）<br>返回：<br>返回一个字典，键为 weapon_affix_1 到 weapon_affix_N，值为格式化的词缀字符串（例如 “attack_percentage,0.05”）<br>总结</p>
+</blockquote>
+<h1 id="PlayerManager-玩家管理器"><a href="#PlayerManager-玩家管理器" class="headerlink" title="PlayerManager 玩家管理器"></a>PlayerManager 玩家管理器</h1><ul>
+<li>主要管理玩家的相关属性</li>
+<li>影响玩家属性</li>
+</ul>
+<blockquote>
+<p>影响玩家属性层的主要因素有:</p>
+<p>玩家升级固定增加的属性</p>
+<p>玩家升级后升级点在天赋树添加或修改的属性</p>
+<p>武器被玩家手持时持有的属性</p>
+<p>换武器时要先把玩家属性减去武器持有属性然后再加上新的武器的属性</p>
+<p>装备被玩家装备时增加的属性</p>
+<p>装备被玩家卸掉时玩家属性要减去装备属性</p>
+<p>换装备时要先减去原装备属性，再加上新装备属性</p>
+</blockquote>
+<ul>
+<li>将分为局内属性和局外属性，其实就是基本属性和叠加属性</li>
+</ul>
+<blockquote>
+<p>局内属性如玩家升级固定增加的属性，</p>
+</blockquote>
+<h2 id="变量-1"><a href="#变量-1" class="headerlink" title="变量"></a>变量</h2><h3 id="玩家当前持有武器id"><a href="#玩家当前持有武器id" class="headerlink" title="玩家当前持有武器id"></a>玩家当前持有武器id</h3><ul>
+<li>player_weapon_id</li>
+</ul>
+<blockquote>
+<p>初始化：应从数据库获取玩家数据表中数据</p>
+<p>set 方法：触发信号</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/04/09/%E7%88%B1%EF%BC%8C%E6%AD%BB%E4%BA%A1%EF%BC%8C%E6%9C%BA%E5%99%A8%E4%BA%BA/" rel="prev" title="所谓爱情">
+                  <i class="fa fa-angle-left"></i> 所谓爱情
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/05/02/Godot-UI%E5%AD%A6%E4%B9%A0/" rel="next" title="Godot - UI学习">
+                  Godot - UI学习 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">小沐</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

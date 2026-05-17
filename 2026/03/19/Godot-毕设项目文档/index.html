@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言 是的，我将尝试把这个项目作为我的毕设  项目名称     -    深渊武库">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-03-19T15:37:49.000Z">
-<meta property="article:modified_time" content="2026-04-02T07:15:30.969Z">
+<meta property="article:modified_time" content="2026-05-08T04:23:00.996Z">
 <meta property="article:author" content="小沐">
 <meta property="article:tag" content="博客">
 <meta property="article:tag" content="笔记">
@@ -145,13 +145,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -219,7 +219,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-02 15:15:30" itemprop="dateModified" datetime="2026-04-02T15:15:30+08:00">2026-04-02</time>
+      <time title="修改时间：2026-05-08 12:23:00" itemprop="dateModified" datetime="2026-05-08T12:23:00+08:00">2026-05-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -325,6 +325,8 @@
 <h2 id="2-武器与装备系统"><a href="#2-武器与装备系统" class="headerlink" title="2.武器与装备系统"></a>2.武器与装备系统</h2><h3 id="1-武器"><a href="#1-武器" class="headerlink" title="1.武器"></a>1.武器</h3><ul>
 <li><p><strong>武器等级</strong> 跟随玩家等级，当玩家等级变高时可以通过 <strong>锻造大厅</strong> - <strong>锻造</strong> 消耗 <strong>深渊黄石</strong> 升级武器</p>
 </li>
+<li><p><strong>武器品质</strong> 普通、稀有、史诗、传说、神话、神话+，武器表中拥有品质，如果<br>普通：1  稀有：2  史诗：3  传说：4  神话：5  神话+：6</p>
+</li>
 <li><p>**武器词缀 ** 总共拥有四条词缀，拥有 <strong>武器词缀刷新系统</strong> ，刷新一条词缀消耗 <strong>10 深渊蓝石</strong>，刷到满意词缀可固定，可以消耗 <strong>100 深渊蓝石</strong> 设置 <strong>武器词缀类型偏好</strong> 当玩家设置偏好后 每次刷新将有 <strong>50%</strong> 的概率刷出偏好类型</p>
 </li>
 <li><p><strong>武器类型分类</strong> 当某一武器同时拥有两种类型时，他会获得两种类型分类</p>
@@ -398,21 +400,12 @@
 </li>
 </ul>
 <blockquote>
-<h4 id="1-攻击类词缀"><a href="#1-攻击类词缀" class="headerlink" title="1.攻击类词缀"></a>1.<strong>攻击类词缀</strong></h4><p><em><strong>最终增伤比</strong></em>(final_attack_power)  - [5% - 20%] - 伤害基础上 * <em><strong>最终增伤比</strong></em>，该词条在所有造成伤害计算完毕后独立计算</p>
-<p>基础攻击力(base_attack_power) - [武器等级 * 1 - 武器等级 * 5] - 玩家面板攻击力 + <strong>基础攻击力</strong></p>
-<p>攻击百分比(attack_percentage) - [10% - 50%] - 在<strong>基础攻击力</strong>上增加 <strong>攻击百分比</strong> * <strong>基础攻击力</strong> 的攻击力</p>
-<p><strong>攻速百分比</strong>(attack_speed_percentage) - [10% - 20%] - <strong>衰减限制</strong>：人物在基础状态最高可允许攻速为 100% - <strong>最终攻速</strong> &#x3D; min( <strong>基础攻速</strong> &#x2F; (1 + <strong>词缀总加成</strong> + <strong>全局加成</strong>), <strong>衰减上限</strong> )</p>
-<p>暴击率(critical_chance) - [10% - 30%] - 出现暴击的概率，当超出100%后<strong>暴击率</strong>按0.5的倍率转换为<strong>暴击伤害</strong>，超出300%后倍率为0.3</p>
-<p>暴击伤害(critical_damage) - [10% - 30%] - 在**基础暴击伤害（100%）**上 + <strong>暴击伤害</strong></p>
-<p>追击率(follow_up_chance) - [10% - 30%] - 出现追击的概率，当超出100%后<strong>追击率</strong>按0.5的倍率转换为<strong>追击伤害</strong>，超出300%后倍率为0.3</p>
-<p>追击伤害(follow_up_damage) - [10% - 30%] - 在**基础追击伤害（50%）**上 +  <strong>追击伤害</strong></p>
-<p>破甲率(armor_penetration_chance) - [10% - 30%]</p>
-<h4 id="2-生命类词缀"><a href="#2-生命类词缀" class="headerlink" title="2.生命类词缀"></a>2.生命类词缀</h4><p><em><strong>最终免伤比</strong></em> - [5% - 20%] - 免疫伤害的 <em><strong>最终免伤比</strong></em>，该词条在所有受到伤害计算完毕后独立计算</p>
-<p>基础生命值 - [装备等级 * 1 - 装备等级 * 5] - 玩家面板生命值 + <strong>基础生命值</strong></p>
-<p>生命百分比 - [10% - 50%] - 在<strong>基础生命值</strong>上增加 <strong>生命百分比</strong> * <strong>基础生命值</strong> 的生命值</p>
-<p><strong>吸血率</strong> - [10% - 30%]</p>
-<p>吸血增加 - [10% - 30%] - ？</p>
-<p>生命恢复 - [装备等级 * 1 - 装备等级 * 5]</p>
+<h4 id="1-攻击类词缀"><a href="#1-攻击类词缀" class="headerlink" title="1.攻击类词缀"></a>1.<strong>攻击类词缀</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># base_attack_power			基础攻击力</span><br><span class="line">&gt;# attack_percentage			攻击百分比</span><br><span class="line"># attack_speed_percentage	攻速百分比</span><br><span class="line">&gt;# critical_chance			暴击率</span><br><span class="line"># critical_damage			暴击伤害</span><br><span class="line">&gt;# follow_up_chance			追击率</span><br><span class="line"># follow_up_damage			追击伤害</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-生命类词缀"><a href="#2-生命类词缀" class="headerlink" title="2.生命类词缀"></a>2.生命类词缀</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;# base_health			基础生命值</span><br><span class="line"># health_percentage		生命百分比</span><br><span class="line">&gt;# base_defense			基础防御值</span><br><span class="line"># defense_percentage	防御百分比</span><br><span class="line">&gt;# life_steal_chance		生命窃取率</span><br><span class="line"># life_steal_bonus		生命窃取百分比</span><br><span class="line">&gt;# health_regeneration	生命恢复</span><br></pre></td></tr></table></figure>
+
 </blockquote>
 <h3 id="4-锻造大厅"><a href="#4-锻造大厅" class="headerlink" title="4.锻造大厅"></a>4.锻造大厅</h3><ul>
 <li><p><strong>锻造</strong> 消耗 <strong>深渊黄石</strong> 提升武器和装备<strong>等级</strong></p>
@@ -422,7 +415,7 @@
 <li><p><strong>融合</strong> 消耗 <strong>深渊圣黄石</strong> 融合两把武器，失败返回两把武器，成功则返回新武器</p>
 </li>
 </ul>
-<h2 id="3-成就系统"><a href="#3-成就系统" class="headerlink" title="3.成就系统"></a>3.成就系统</h2><p>实现思路：通过信号告知系统，在告知系统后信号断连</p>
+<h2 id="3-场景"><a href="#3-场景" class="headerlink" title="3.场景"></a>3.场景</h2><h3 id="1-成就"><a href="#1-成就" class="headerlink" title="1.成就"></a>1.成就</h3><p>实现思路：通过信号告知系统，在告知系统后信号断连</p>
 <ul>
 <li>普通类</li>
 </ul>
@@ -449,7 +442,10 @@
 <p><strong>无限轮回</strong> - 点击开始后退出，再次进入相同关卡，再次退出</p>
 <p><strong>我不信邪</strong> - 融合相同的两把武器三次以上</p>
 </blockquote>
-<h2 id="4-天赋系统"><a href="#4-天赋系统" class="headerlink" title="4.天赋系统"></a>4.天赋系统</h2><h1 id="关于美术"><a href="#关于美术" class="headerlink" title="关于美术"></a>关于美术</h1><h2 id="玩家"><a href="#玩家" class="headerlink" title="玩家"></a>玩家</h2><blockquote>
+<h3 id="2-天赋树"><a href="#2-天赋树" class="headerlink" title="2.天赋树"></a>2.天赋树</h3><h3 id="3-锻造大厅"><a href="#3-锻造大厅" class="headerlink" title="3.锻造大厅"></a>3.锻造大厅</h3><h3 id="4-背包"><a href="#4-背包" class="headerlink" title="4.背包"></a>4.背包</h3><p>人们常常因为有限的背包空间而感到苦恼，但有一位兽人并不这么想，俺寻思：“背包用来装东西，再用一个背包来装背包，再用一个背包来装装背包的背包，什么时候位置不够了就再用一个背包…”，顺带一提，这背包挺喜欢亮晶晶的东西的</p>
+<h3 id="5-通用商店"><a href="#5-通用商店" class="headerlink" title="5.通用商店"></a>5.通用商店</h3><p>售卖各类宝石，看广告在这里</p>
+<h3 id="6-武器贩子"><a href="#6-武器贩子" class="headerlink" title="6.武器贩子"></a>6.武器贩子</h3><p>回收你的武器，售卖武器给你，有一把神话+的召唤流武器有隐藏选项，当玩家解锁遗物 哥布林编年史 后，解锁，可以让武器贩子送你这把武器并给你封口费</p>
+<h1 id="关于美术"><a href="#关于美术" class="headerlink" title="关于美术"></a>关于美术</h1><h2 id="玩家"><a href="#玩家" class="headerlink" title="玩家"></a>玩家</h2><blockquote>
 <p>玩家素材图为 128 * 128 像素，在编辑器中显示为 8 倍</p>
 </blockquote>
 <h2 id="敌人"><a href="#敌人" class="headerlink" title="敌人"></a>敌人</h2><blockquote>
