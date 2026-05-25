@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言 总日志">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-05-10T15:28:42.000Z">
-<meta property="article:modified_time" content="2026-05-17T11:11:44.179Z">
+<meta property="article:modified_time" content="2026-05-25T09:27:00.663Z">
 <meta property="article:author" content="小沐">
 <meta property="article:tag" content="博客">
 <meta property="article:tag" content="笔记">
@@ -219,7 +219,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-05-17 19:11:44" itemprop="dateModified" datetime="2026-05-17T19:11:44+08:00">2026-05-17</time>
+      <time title="修改时间：2026-05-25 17:27:00" itemprop="dateModified" datetime="2026-05-25T17:27:00+08:00">2026-05-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -310,6 +310,89 @@
 <blockquote>
 <p>切换场景时玩家将重新加载，武器也将重新加载，在武器管理中判断了武器id是否和新的武器id一样，如果一样则返回 空，导致玩家手中为空，访问武器实例的变量时报错</p>
 </blockquote>
+<ul>
+<li>完成</li>
+</ul>
+<blockquote>
+<p>根据玩家属性管理器中的分层组装最终属性的思路重构武器属性管理层</p>
+<p>武器属性管理层分为三层：</p>
+<ul>
+<li>基础属性层<ul>
+<li>基础属性应负责检测该武器可能拥有的除攻击力增加外的额外属性</li>
+</ul>
+</li>
+<li>词缀属性层</li>
+<li>特殊效果层</li>
+</ul>
+</blockquote>
+<ul>
+<li>下次工作思路</li>
+</ul>
+<blockquote>
+<p>对游戏中会出现的部分主要玩法进行定义</p>
+<p>比如武器类别具体怎么定义</p>
+</blockquote>
+<h2 id="20260517工作总结"><a href="#20260517工作总结" class="headerlink" title="20260517工作总结"></a>20260517工作总结</h2><p>已完成武器属性层的重构，并优化了玩家属性层的属性</p>
+<h1 id="20260518"><a href="#20260518" class="headerlink" title="20260518"></a>20260518</h1><p>武器的定义：</p>
+<p>一般近战武器：在近处能自动对敌人攻击，生成范围子弹，一次攻击可覆盖多个敌人，但是只能对每个敌人造成一次伤害</p>
+<p>一般远程武器：在远处能自动瞄准敌人攻击，生成小的碰撞子弹，一次攻击只对一名敌人造成一次伤害</p>
+<p>攻击方式：所有的攻击方式都是创建一个单独的节点并为它附加当前武器管理器中加载好的伤害策略脚本，这个子弹节点会向最近的敌人方向创建，子弹节点与hurtbox产生碰撞时会调用该伤害策略脚本的伤害处理返回一个字典，告诉敌人本次伤害包含了哪些特殊状态，然后调用敌人的受到伤害函数来处理这些特殊状态与敌人的属性的碰撞，以及最后该显示在敌人头上的伤害数字</p>
+<p>玩家相关定义：<a href="/2026/03/24/Godot-%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97-Player/">点击跳转到笔记：Godot-项目日志-Player</a></p>
+<ul>
+<li><p>定义两把伤害效果不同的武器验证玩法</p>
+<ul>
+<li><p>生锈的菜刀</p>
+<blockquote>
+<p>造成玩家攻击力 120% 的物理伤害</p>
+</blockquote>
+</li>
+<li><p>少年的宝贝刺剑</p>
+<blockquote>
+<p>造成玩家攻击力 60% 的物理伤害，装备时流血概率增加 10%</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>下次工作思路</p>
+</li>
+</ul>
+<blockquote>
+<p>设计伤害策略中伤害包，部分伤害计算工具函数，敌人属性</p>
+</blockquote>
+<h3 id="注意点："><a href="#注意点：" class="headerlink" title="注意点："></a>注意点：</h3><ul>
+<li>数据库中只修改了玩家武器表结构，增加了weapon_unique_stat字段，用作每一个武器除开基础攻击力外的额外固定属性</li>
+</ul>
+<h2 id="20260518工作总结"><a href="#20260518工作总结" class="headerlink" title="20260518工作总结"></a>20260518工作总结</h2><p>清晰目标，更新设定</p>
+<h1 id="20260520"><a href="#20260520" class="headerlink" title="20260520"></a>20260520</h1><p>应该尽快将伤害策略代码写出，并对应武器数据库数据</p>
+<p>应该制作敌人基类，以此来确定属性</p>
+<h3 id="注意点：-1"><a href="#注意点：-1" class="headerlink" title="注意点："></a>注意点：</h3><ul>
+<li>数据库中只修改了玩家武器表结构，增加了weapon_unique_stat字段，用作每一个武器除开基础攻击力外的额外固定属性</li>
+<li>敌人属性中应有 enemy_type 字段（小怪，精英，BOSS）</li>
+<li>武器的攻速和伤害表达式是一次性的赋值，后期可能需要修改</li>
+</ul>
+<h2 id="20260520工作总结"><a href="#20260520工作总结" class="headerlink" title="20260520工作总结"></a>20260520工作总结</h2><p>基本重构了伤害策略</p>
+<h1 id="20260523"><a href="#20260523" class="headerlink" title="20260523"></a>20260523</h1><p>关于伤害策略，没有改变出伤逻辑的武器可统一直接使用伤害策略 基类，只有改变了出伤逻辑的武器才应该建立子类</p>
+<ul>
+<li>正在制作敌人基类</li>
+</ul>
+<p>绘制了一个史莱姆移动的动画，我算是知道为什么好多游戏第一个怪都是史莱姆了，因为画起来真的简单，移动，攻击，跳跃都是一个动画</p>
+<p>GPT给出的组件化思路非常对，特别是对于 敌人种类繁杂 的项目来说，创建一个新的敌人只需要搭积木</p>
+<p>我将新建components文件夹存放组件，组件使用node作为根节点</p>
+<p>我新建 生命组件 来负责生命值计算</p>
+<p>我让敌人基类引用生命组件</p>
+<h3 id="注意点：-2"><a href="#注意点：-2" class="headerlink" title="注意点："></a>注意点：</h3><ul>
+<li>玩家只有最大生命值的属性，没有当前生命值，也许该写在玩家具体实例上</li>
+<li>在敌人基类建设完后应该和伤害测试敌人对齐函数等</li>
+</ul>
+<h2 id="20260520工作总结-1"><a href="#20260520工作总结-1" class="headerlink" title="20260520工作总结"></a>20260520工作总结</h2><p>构建了基本的敌人基类，抗性组件，生命组件，异常状态组件</p>
+<h1 id="20260525"><a href="#20260525" class="headerlink" title="20260525"></a>20260525</h1><p>开始思考怎么构建敌人的结构才能满足游戏需要</p>
+<p>我想提取敌人的共性作为一个脚本：</p>
+<ul>
+<li><p><strong>伤害包处理脚本</strong>：都会收到伤害包，都需要处理伤害包，假设敌人拥有抗性字典，那么这个所有敌人都需要的脚本的函数应该接受这个字典处理伤害，返回一个处理后的伤害包，这个伤害包要包含伤害大小，是否暴击（用于伤害飘字）</p>
+</li>
+<li><p>都需要寻路</p>
+</li>
+</ul>
 
     </div>
 
